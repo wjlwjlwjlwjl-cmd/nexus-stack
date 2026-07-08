@@ -3,7 +3,7 @@
 
 SET NAMES utf8mb4;
 
-use `frameworkjava_test`;
+use `nexus-stack_test`;
 
 CREATE TABLE `sys_region` (
                               `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键id',

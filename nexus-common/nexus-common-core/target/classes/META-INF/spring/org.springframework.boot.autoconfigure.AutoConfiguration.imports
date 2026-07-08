@@ -1,2 +1,2 @@
-com.jiuyeke.commoncore.config.RestTemplateConfig
-com.jiuyeke.commoncore.config.ThreadPoolConfig
+com.commoncore.config.RestTemplateConfig
+com.commoncore.config.ThreadPoolConfig

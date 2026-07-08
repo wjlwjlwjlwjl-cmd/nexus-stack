@@ -11,12 +11,12 @@ spring:
       discovery:
         username: nacos
         password: @123
-        namespace: frameworkjava-${RUN_ENV}
+        namespace: nexus-stack-${RUN_ENV}
         server-addr: ${NACOS_ADDR}
       config:
         username: nacos
         password: @123
-        namespace: frameworkjava-${RUN_ENV}
+        namespace: nexus-stack-${RUN_ENV}
         server-addr: ${NACOS_ADDR}
         file-extension: yaml
         # 共享配置

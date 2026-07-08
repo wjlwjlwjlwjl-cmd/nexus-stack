@@ -1,7 +1,7 @@
 # 1. 初始化nacos配置数据
 # 注意： 此前如果修改过nacos外接数据库名称，此处需确保名称一致
 
-use `frameworkjava_nacos_prd`;
+use `nexus-stack_nacos_prd`;
 INSERT INTO config_info (data_id,group_id,content,md5,gmt_create,gmt_modified,src_user,src_ip,app_name,tenant_id,c_desc,c_use,effect,`type`,c_schema,encrypted_data_key) VALUES
                                                                                                                                                                              ('share-common-prd.yaml','DEFAULT_GROUP','# feign 配置
 feign:
@@ -18,7 +18,7 @@ feign:
     request:
       enabled: true
     response:
-      enabled: true','aa24e89d40f144f6d7ea2a34a9f868b9',now(),now(),'nacos','112.46.64.96','通用公共配置','frameworkjava-prd','','','','yaml','',''),
+      enabled: true','aa24e89d40f144f6d7ea2a34a9f868b9',now(),now(),'nacos','112.46.64.96','通用公共配置','nexus-stack-prd','','','','yaml','',''),
                                                                                                                                                                              ('share-redis-prd.yaml','DEFAULT_GROUP','spring:
   cache:
     type: redis
@@ -35,10 +35,10 @@ feign:
       cluster:
         nodes: 你的云服务器1内网ip/你的虚拟机1内网ip:6380,你的云服务器1内网ip/你的虚拟机1内网ip:6381,你的云服务器1内网ip/你的虚拟机1内网ip:6382,你的云服务器2内网ip/你的虚拟机2内网ip:6383,你的云服务器2内网ip/你的虚拟机2内网ip:6384,你的云服务器2内网ip/你的虚拟机2内网ip:6385
       connect-timeout: 5000
-      timeout: 5000','c50bba098c68792872b1684763b388ab',now(),now(),'nacos','222.91.199.193','通用Redis公共配置','frameworkjava-prd','','','','yaml','',''),
+      timeout: 5000','c50bba098c68792872b1684763b388ab',now(),now(),'nacos','222.91.199.193','通用Redis公共配置','nexus-stack-prd','','','','yaml','',''),
                                                                                                                                                                              ('share-mysql-prd.yaml','DEFAULT_GROUP','spring:
   datasource:
-    url: jdbc:mysql://你的云服务器1内网ip/你的虚拟机1内网ip:3308/frameworkjava_prd?useSSL=false&autoReconnect=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8
+    url: jdbc:mysql://你的云服务器1内网ip/你的虚拟机1内网ip:3308/nexus-stack_prd?useSSL=false&autoReconnect=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: dev
     password: @123
@@ -68,7 +68,7 @@ mybatis-plus:
     # 配置mapper的扫描，找到所有的mapper.xml映射文件
     mapperLocations: classpath*:mapper/**.xml
     configuration:
-      log-impl: org.apache.ibatis.logging.stdout.StdOutImpl','0882cc2e071170341f26b47058d41aaf',now(),now(),'nacos','222.91.199.193','通用mysql公共配置','frameworkjava-prd','','','','yaml','',''),
+      log-impl: org.apache.ibatis.logging.stdout.StdOutImpl','0882cc2e071170341f26b47058d41aaf',now(),now(),'nacos','222.91.199.193','通用mysql公共配置','nexus-stack-prd','','','','yaml','',''),
                                                                                                                                                                              ('-gateway-prd.yaml','DEFAULT_GROUP','spring:
   cloud:
     gateway:
@@ -120,7 +120,7 @@ security:
       - /**/login/**
       - /**/send_code/**
       - /**/nologin/**
-      - /**/test/**','b6476af4d05245cc366bb2b3771ec17c',now(),now(),'nacos','112.46.64.96','网关','frameworkjava-prd','','','','yaml','',''),
+      - /**/test/**','b6476af4d05245cc366bb2b3771ec17c',now(),now(),'nacos','112.46.64.96','网关','nexus-stack-prd','','','','yaml','',''),
                                                                                                                                                                              ('share-sms-prd.yaml','DEFAULT_GROUP','sms:
   send-message: false
   send-limit: 200
@@ -130,7 +130,7 @@ security:
     accessKeyId: 你的阿里云AK
     accessKeySecret: 你的阿里云SK
     endpoint: dysmsapi.aliyuncs.com
-    templateCode: 你的阿里云短信模板','b704d125c1dc1f50377bd9e1b3527dc0',now(),now(),'nacos','172.18.0.1','短信通用服务','frameworkjava-prd','','','','yaml','',''),
+    templateCode: 你的阿里云短信模板','b704d125c1dc1f50377bd9e1b3527dc0',now(),now(),'nacos','172.18.0.1','短信通用服务','nexus-stack-prd','','','','yaml','',''),
                                                                                                                                                                              ('share-map-prd.yaml','DEFAULT_GROUP','map:
   type: qqmap
   enabled: false
@@ -138,17 +138,17 @@ security:
   
 qqmap:
   key: 你的腾讯地图KEY
-  apiServer: https://apis.map.qq.com','19195726133e9c9cfc420d4064091983',now(),now(),'nacos','112.46.64.96','公共地图配置','frameworkjava-prd','','','','yaml','',''),
+  apiServer: https://apis.map.qq.com','19195726133e9c9cfc420d4064091983',now(),now(),'nacos','112.46.64.96','公共地图配置','nexus-stack-prd','','','','yaml','',''),
                                                                                                                                                                              ('-admin-prd.yaml','DEFAULT_GROUP','# 用戶
 appuser:
   info:
-    defaultAvatar: https://你的阿里云OSS桶名称.oss-cn-chengdu.aliyuncs.com/你的阿里云OSS路径前缀/web/profile/default-avatar.png','f88f0ecaf1e7a076cbf44df05104e1ce',now(),now(),'nacos','112.46.64.96','基础管理服务','frameworkjava-prd','','','','yaml','',''),
+    defaultAvatar: https://你的阿里云OSS桶名称.oss-cn-chengdu.aliyuncs.com/你的阿里云OSS路径前缀/web/profile/default-avatar.png','f88f0ecaf1e7a076cbf44df05104e1ce',now(),now(),'nacos','112.46.64.96','基础管理服务','nexus-stack-prd','','','','yaml','',''),
                                                                                                                                                                              ('share-rabbitmq-prd.yaml','DEFAULT_GROUP','spring:
   rabbitmq:
     addresses: 你的云服务器1内网ip/你的虚拟机1内网ip:5673,你的云服务器2内网ip/你的虚拟机2内网ip:5673
     virtual-host: /
     username: admin
-    password: @123','c1dfdc9fdd7d50cee9d1d53b70bca94e',now(),now(),'nacos','222.91.199.193','通用rabbitmq公共配置','frameworkjava-prd','
+    password: @123','c1dfdc9fdd7d50cee9d1d53b70bca94e',now(),now(),'nacos','222.91.199.193','通用rabbitmq公共配置','nexus-stack-prd','
 ','','','yaml','',''),
                                                                                                                                                                              ('-file-prd.yaml','DEFAULT_GROUP','storage:
   type: oss
@@ -170,19 +170,19 @@ spring:
   servlet:
     multipart:
       max-file-size: 50MB
-      max-request-size: 50MB','c42244faa84553043e3fc60d2420612b',now(),now(),'nacos','112.46.64.96','文件服务配置','frameworkjava-prd','','','','yaml','',''),
+      max-request-size: 50MB','c42244faa84553043e3fc60d2420612b',now(),now(),'nacos','112.46.64.96','文件服务配置','nexus-stack-prd','','','','yaml','',''),
                                                                                                                                                                              ('-portal-prd.yaml','DEFAULT_GROUP','# 微信小程序
 wx:
   applet:
     app-id: wxced773bb27a21222
-    app-secret: 21d9bf91f89d410868dde7f0b7226433','654d56916263537e391277d77bd8604f',now(),now(),'nacos','112.46.64.96','门户首页服务','frameworkjava-prd',NULL,NULL,NULL,'yaml',NULL,'');
+    app-secret: 21d9bf91f89d410868dde7f0b7226433','654d56916263537e391277d77bd8604f',now(),now(),'nacos','112.46.64.96','门户首页服务','nexus-stack-prd',NULL,NULL,NULL,'yaml',NULL,'');
 INSERT INTO config_info (data_id,group_id,content,md5,gmt_create,gmt_modified,src_user,src_ip,app_name,tenant_id,c_desc,c_use,effect,`type`,c_schema,encrypted_data_key) VALUES
     ('share-caffeine-prd.yaml','DEFAULT_GROUP','caffeine:
   build:
     initial-capacity: 128
     maximum-size: 1024
-    expire: 60','92e0d0f563d11d8e5e34e8932444ee1e',now(),now(),'nacos','112.46.64.96','本地缓存公共配置','frameworkjava-prd',NULL,NULL,NULL,'yaml',NULL,'');
+    expire: 60','92e0d0f563d11d8e5e34e8932444ee1e',now(),now(),'nacos','112.46.64.96','本地缓存公共配置','nexus-stack-prd',NULL,NULL,NULL,'yaml',NULL,'');
 
 
 INSERT INTO tenant_info (kp,tenant_id,tenant_name,tenant_desc,create_source,gmt_create,gmt_modified) VALUES
-    ('1','frameworkjava-prd','frameworkjava-prd','生产环境','nacos',unix_timestamp()*1000,unix_timestamp()*1000);
+    ('1','nexus-stack-prd','nexus-stack-prd','生产环境','nacos',unix_timestamp()*1000,unix_timestamp()*1000);

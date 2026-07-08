@@ -1,2 +1,2 @@
-com.jiuyeke.commonsecurity.handler.GlobalExceptionHandler
-com.jiuyeke.commonsecurity.service.TokenService
+com.commonsecurity.handler.GlobalExceptionHandler
+com.commonsecurity.service.TokenService
