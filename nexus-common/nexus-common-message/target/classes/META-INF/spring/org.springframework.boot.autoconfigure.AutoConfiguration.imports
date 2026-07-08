@@ -1,0 +1,3 @@
+com.jiuyeke.commonmessage.config.AliSmsConfig
+com.jiuyeke.commonmessage.service.AliSmsService
+com.jiuyeke.commonmessage.service.CaptchaService

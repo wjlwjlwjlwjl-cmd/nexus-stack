@@ -1,0 +1,2 @@
+com.commoncore.config.RestTemplateConfig
+com.commoncore.config.ThreadPoolConfig

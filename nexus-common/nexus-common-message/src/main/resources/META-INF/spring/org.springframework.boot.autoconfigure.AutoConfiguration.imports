@@ -1,0 +1,3 @@
+com.commonmessage.config.AliSmsConfig
+com.commonmessage.service.AliSmsService
+com.commonmessage.service.CaptchaService
