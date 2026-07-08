@@ -21,6 +21,14 @@
         <module>nexus-mstemplate</module>
         <module>nexus-file</module>
         <module>nexus-portal</module>
+        <module>nexus-mstemplate-api</module>
+        <module>demo</module>
+        <module>nexus-admin</module>
+        <module>nexus-common</module>
+        <module>nexus-file</module>
+        <module>nexus-gateway</module>
+        <module>nexus-mstemplate</module>
+        <module>nexus-portal</module>
     </modules>
 
     <properties>

@@ -1,3 +1,0 @@
-com.commonredis.config.RedisConfig
-com.commonredis.service.RedisService
-com.commonredis.service.RedissonLockService
