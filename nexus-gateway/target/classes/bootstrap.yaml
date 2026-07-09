@@ -1,6 +1,9 @@
+server:
+  port: 18080
+
 spring:
   application:
-    name: nexus-mstemplate
+    name: nexus-gateway
   profiles:
     active: ${RUN_ENV}
   cloud:
