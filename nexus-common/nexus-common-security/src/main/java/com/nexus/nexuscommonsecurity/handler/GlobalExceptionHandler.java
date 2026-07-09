@@ -6,8 +6,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
-import com.nexus.nexuscommondomain.domain.R;
-import com.nexus.nexuscommondomain.domain.ResultCode;
+import com.nexus.nexuscommondomain.constants.R;
+import com.nexus.nexuscommondomain.constants.ResultCode;
+import com.nexus.nexuscommondomain.exception.ServiceException;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -103,6 +104,22 @@ public class GlobalExceptionHandler {
             HttpServletResponse response) {
         String requestURI = request.getRequestURI();
         log.error("Requrest Address: '{}', Exception Occured: {}.", requestURI, e);
+        setResponseCode(response, ResultCode.ERROR.getCode());
+        return R.fail(ResultCode.ERROR.getCode(), ResultCode.ERROR.getMsg());
+    }
+
+    /**
+     * 
+     * @param e 异常
+     * @param request Http 请求
+     * @param response Http 响应
+     * @return 响应结果
+     */
+    @ExceptionHandler(ServiceException.class)
+    public R<?> handleServiceException(ServiceException e, HttpServletRequest request, 
+        HttpServletResponse response){
+        String requestURI = request.getRequestURI();
+        log.error("Requrest Address: '{}', ServiceException Occured: {}.", requestURI, e);
         setResponseCode(response, ResultCode.ERROR.getCode());
         return R.fail(ResultCode.ERROR.getCode(), ResultCode.ERROR.getMsg());
     }

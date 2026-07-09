@@ -14,14 +14,15 @@ import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
 import com.nexus.nexuscommoncore.utils.JsonUtil;
-import com.nexus.nexuscommondomain.domain.R;
-import com.nexus.nexuscommondomain.domain.ResultCode;
+import com.nexus.nexuscommondomain.constants.R;
+import com.nexus.nexuscommondomain.constants.ResultCode;
+import com.nexus.nexuscommondomain.exception.ServiceException;
 
 @Slf4j
 @Configuration
 public class GatewayExceptionHandler implements ErrorWebExceptionHandler {@Override
     /**
-     * 网关统一异常处理，捕获服务路径错误及其他非服务接口错误
+     * 网关统一异常处理，捕获服务路径错误、自定义异常及其他非服务接口错误
      * 
      * @param exchange ServerWebExchange
      * @param ex 异常信息
@@ -37,6 +38,10 @@ public class GatewayExceptionHandler implements ErrorWebExceptionHandler {@Overr
         if(ex instanceof NoResourceFoundException){
             errCode = ResultCode.SERVICE_NOT_FOUND.getCode();
             errMsg = ResultCode.SERVICE_NOT_FOUND.getMsg();
+        }
+        else if(ex instanceof ServiceException){
+            errCode = ((ServiceException)ex).getCode();
+            errMsg = ((ServiceException)ex).getMsg();
         }
 
         //和服务处的统一异常处理相同，取错误码的前三位作为 http 响应状态码

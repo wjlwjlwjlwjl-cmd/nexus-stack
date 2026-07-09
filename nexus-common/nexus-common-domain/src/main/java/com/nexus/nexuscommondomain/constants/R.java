@@ -1,4 +1,4 @@
-package com.nexus.nexuscommondomain.domain;
+package com.nexus.nexuscommondomain.constants;
 
 import lombok.Data;
 
