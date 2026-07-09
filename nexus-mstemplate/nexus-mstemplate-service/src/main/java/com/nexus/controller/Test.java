@@ -1,7 +1,9 @@
 package com.nexus.controller;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.service.annotation.GetExchange;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -9,8 +11,13 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/test")
 @Slf4j
 public class Test {
-    @RequestMapping("/info")
+    @GetMapping("/info")
     public void info(){
+        log.info("接口调用成功");
+    }
+
+    @RequestMapping("/type")
+    public void type(String str){
         log.info("接口调用成功");
     }
 }
