@@ -1,4 +1,4 @@
-package com.nexus.bitegateway;
+package com.nexus.nexusgateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
