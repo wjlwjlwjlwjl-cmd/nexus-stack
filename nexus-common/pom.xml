@@ -15,6 +15,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>nexus-common-core</module>
+        <module>nexus-common-domain</module>
     </modules>
 
     <properties>
