@@ -5,7 +5,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 
-public class TimeStamp {
+public class TimeStampUtil {
     /**
      * 获取当前时间戳（秒级）
      *
