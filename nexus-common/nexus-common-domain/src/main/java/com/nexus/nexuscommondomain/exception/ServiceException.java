@@ -1,6 +1,6 @@
 package com.nexus.nexuscommondomain.exception;
 
-import com.nexus.nexuscommondomain.constants.ResultCode;
+import com.nexus.nexuscommondomain.domain.ResultCode;
 
 public class ServiceException extends Exception{
     /**

@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
-import com.nexus.nexuscommondomain.constants.R;
-import com.nexus.nexuscommondomain.constants.ResultCode;
+import com.nexus.nexuscommondomain.domain.R;
+import com.nexus.nexuscommondomain.domain.ResultCode;
 import com.nexus.nexuscommondomain.exception.ServiceException;
 
 import jakarta.servlet.http.HttpServletRequest;

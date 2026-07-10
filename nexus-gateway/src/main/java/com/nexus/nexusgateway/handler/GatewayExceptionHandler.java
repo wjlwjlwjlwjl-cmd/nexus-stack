@@ -16,8 +16,8 @@ import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
 import com.nexus.nexuscommoncore.utils.JsonUtil;
-import com.nexus.nexuscommondomain.constants.R;
-import com.nexus.nexuscommondomain.constants.ResultCode;
+import com.nexus.nexuscommondomain.domain.R;
+import com.nexus.nexuscommondomain.domain.ResultCode;
 import com.nexus.nexuscommondomain.exception.ServiceException;
 
 @Slf4j
