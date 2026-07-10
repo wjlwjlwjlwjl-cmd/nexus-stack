@@ -2,11 +2,13 @@ package com.nexus.nexusgateway.handler;
 
 import org.springframework.boot.web.reactive.error.ErrorWebExceptionHandler;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.reactive.ServerHttpResponse;
+import org.springframework.lang.NonNull;
 import org.springframework.web.reactive.resource.NoResourceFoundException;
 import org.springframework.web.server.ServerWebExchange;
 
@@ -19,6 +21,7 @@ import com.nexus.nexuscommondomain.constants.ResultCode;
 import com.nexus.nexuscommondomain.exception.ServiceException;
 
 @Slf4j
+@Order(-1)
 @Configuration
 public class GatewayExceptionHandler implements ErrorWebExceptionHandler {@Override
     /**
@@ -28,7 +31,7 @@ public class GatewayExceptionHandler implements ErrorWebExceptionHandler {@Overr
      * @param ex 异常信息
      * @return 无
      */
-    public Mono<Void> handle(ServerWebExchange exchange, Throwable ex) {
+    public @NonNull Mono<Void> handle(ServerWebExchange exchange, Throwable ex) {
         ServerHttpResponse response = exchange.getResponse();
         if(response.isCommitted()){
             return Mono.error(ex); //响应已经到达客户端，无法再进行修改
@@ -48,7 +51,8 @@ public class GatewayExceptionHandler implements ErrorWebExceptionHandler {@Overr
         int httpCode = Integer.parseInt(String.valueOf(errCode).substring(0, 3));
         log.warn("Gateway Captured Exception, errCode: {}, errMsg: {}", errCode, errMsg);
         webFluxResponseWriter(response, httpCode, errCode, errMsg);
-        throw new UnsupportedOperationException("Unimplemented method 'handle'");
+
+        return webFluxResponseWriter(response, httpCode, errCode, errMsg);
     }
 
     //根据 handle 获得的信息获取更多返回响应配置

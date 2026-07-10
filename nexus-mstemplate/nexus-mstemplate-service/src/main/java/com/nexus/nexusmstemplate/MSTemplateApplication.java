@@ -1,4 +1,4 @@
-package com.nexus;
+package com.nexus.nexusmstemplate;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
