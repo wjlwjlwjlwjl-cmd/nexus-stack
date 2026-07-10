@@ -13,6 +13,8 @@
 
 封装 Web 开发常用工具类等，目前已做的内容包括：
 
-* nexus-common-core，提供 Bean 复制（部分）、Json 序列化与反序列化、字符串校验、时间戳操作
+* nexus-common-core，提供 部分常用小工具，例如：Bean 复制（部分）、Json 序列化与反序列化、字符串校验、时间戳操作；Spring 线程池配置封装（通过 Nacos 服务配置修改线程池配置）；
 
-* nexus-common-domain，提供统一状态码、统一返回结果载体类
+* nexus-common-domain，提供常用常量定义，比如：时间格式、线程池被打满时的处理策略等；错误码、错误信息承载类；服务异常类
+
+* nexus-common-security，统一异常处理（服务异常）

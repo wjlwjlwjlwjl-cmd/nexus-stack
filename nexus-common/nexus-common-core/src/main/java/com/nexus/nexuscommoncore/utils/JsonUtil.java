@@ -149,7 +149,7 @@ public class JsonUtil {
      * @param ref 嵌套类型
      * @return 解析结果
      */
-    public static<T> T string2Obj(String str, TypeReference<T> ref){ //为了解决多层嵌套泛型的问题
+    public static<T> T string2Object(String str, TypeReference<T> ref){ //为了解决多层嵌套泛型的问题
         if(str == null || str.isEmpty() || ref == null){
             return null;
         }

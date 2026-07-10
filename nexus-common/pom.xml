@@ -17,6 +17,7 @@
         <module>nexus-common-core</module>
         <module>nexus-common-domain</module>
         <module>nexus-common-security</module>
+        <module>nexus-common-redis</module>
     </modules>
 
     <properties>
