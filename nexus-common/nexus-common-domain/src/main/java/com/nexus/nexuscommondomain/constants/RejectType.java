@@ -1,7 +1,5 @@
 package com.nexus.nexuscommondomain.constants;
 
-import java.util.concurrent.ThreadPoolExecutor.DiscardOldestPolicy;
-
 import lombok.Getter;
 
 /**

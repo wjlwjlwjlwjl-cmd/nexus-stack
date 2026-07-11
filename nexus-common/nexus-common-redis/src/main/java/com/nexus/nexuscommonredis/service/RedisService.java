@@ -17,8 +17,11 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.nexus.nexuscommoncore.utils.JsonUtil;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Component
 @SuppressWarnings({"unchecked", "rawtypes", "null"})
+@Slf4j
 public class RedisService {
     @Autowired
     RedisTemplate redisTemplate;
@@ -152,11 +155,24 @@ public class RedisService {
     }
 
     /**
+     * 如果对应 key 不存在，则将 obj 序列化为 Json 存储进 Redis
+     * 
+     * @param <T>
+     * @param key
+     * @param obj
+     * @param timeout
+     * @param unit
+     */
+    public <T> void setCacheObjectIfAbsent(final String key, T obj){
+        redisTemplate.opsForValue().setIfAbsent(key, obj);
+    }
+
+    /**
      * 获取 key 对应的缓存对象
      * 
      * @param <T>   缓存对象类型
      * @param key   键值对键
-     * @param clazz 缓存对象类对象
+     * @param clazz 缓存对象类对象（缓存对象需要设置默认构造方法，直接使用 @AllArgsConstructor 和 @NoArgsConstructor 即可
      * @return      获得的缓存对象
      */
     public <T> T getCacheObject(final String key, Class<T> clazz){

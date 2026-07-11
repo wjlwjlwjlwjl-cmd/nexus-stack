@@ -1,1 +1,2 @@
 com.nexus.nexuscommonredis.service.RedisService
+com.nexus.nexuscommonredis.config.RedisConfig
