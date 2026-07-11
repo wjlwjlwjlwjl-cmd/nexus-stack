@@ -1,15 +1,11 @@
 package com.nexus.nexuscommonredis.service;
 
-import java.util.Collections;
-import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.commons.lang3.StringUtils;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -48,24 +44,5 @@ public class RedissonService {
             return true;
         }
         return false;
-    }
-
-    /**
-     * 引入 Lua 脚本，删除指定值对应的 Redis 中的键值（compare and delete）
-     *
-     * @param key   缓存key
-     * @param value value
-     * @return 是否完成了比较并删除
-     */
-    public boolean cad(String key, String value) {
-        if (key.contains(StringUtils.SPACE) || value.contains(StringUtils.SPACE)) {
-            return false;
-        }
-        String script = "if redis.call('get', KEYS[1]) == ARGV[1] then returnredis.call('del', KEYS[1]) else return 0 end";
-        // 通过lua脚本原子验证令牌和删除令牌
-        Long result = (Long) redisTemplate.execute(new DefaultRedisScript<>(script, Long.class),
-                Collections.singletonList(key),
-                value);
-        return !Objects.equals(result, 0L);
     }
 }

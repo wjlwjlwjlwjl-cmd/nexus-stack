@@ -1,16 +1,20 @@
 package com.nexus.nexuscommonredis.service;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.Set;
 import java.util.Map;
+import java.util.Objects;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -539,5 +543,24 @@ public class RedisService {
     public <T> List<T> getCacheMapMultiValue(final String key, final Collection<String> hKeys, TypeReference<List<T>> reference){
         List list = redisTemplate.opsForHash().multiGet(key, hKeys);
         return JsonUtil.string2Object(JsonUtil.object2String(list), reference);
+    }
+
+    /**
+     * 引入 Lua 脚本，删除指定值对应的 Redis 中的键值（compare and delete）
+     *
+     * @param key   缓存key
+     * @param value value
+     * @return 是否完成了比较并删除
+     */
+    public boolean cad(String key, String value) {
+        if (key.contains(StringUtils.SPACE) || value.contains(StringUtils.SPACE)) {
+            return false;
+        }
+        String script = "if redis.call('get', KEYS[1]) == ARGV[1] then returnredis.call('del', KEYS[1]) else return 0 end";
+        // 通过lua脚本原子验证令牌和删除令牌
+        Long result = (Long) redisTemplate.execute(new DefaultRedisScript<>(script, Long.class),
+                Collections.singletonList(key),
+                value);
+        return !Objects.equals(result, 0L);
     }
 }
