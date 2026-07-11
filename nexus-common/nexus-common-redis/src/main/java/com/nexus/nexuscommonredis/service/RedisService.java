@@ -9,7 +9,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
-import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
@@ -211,8 +210,7 @@ public class RedisService {
      * @return          添加元素后 list 长度
      */
     public <T> long setCacheList(final String key, final List<T> dataList){
-        ListOperations operations = redisTemplate.opsForList();
-        Long count = operations.rightPushAll(key, dataList);
+        Long count = redisTemplate.opsForList().rightPushAll(key, dataList);
         return count == null ? 0 : count;
     }
 
@@ -264,7 +262,7 @@ public class RedisService {
      * @param value     移除元素
      */
     public <T> void removeForList(final String key, T value){
-        redisTemplate.opsForList().remove(key, 1, value);
+        redisTemplate.opsForList().remove(key, 1L, value);
     }
 
     /**
@@ -335,7 +333,7 @@ public class RedisService {
      * @param clazz     列表元素类对象
      * @return          获取到的列表
      */
-    public <T> List<T> getCacheListByRange(final String key, int start, int end, Class<T> clazz){
+    public <T> List<T> getCacheListByRange(final String key, long start, long end, Class<T> clazz){
         List list = redisTemplate.opsForList().range(key, start, end);
         return JsonUtil.string2List(JsonUtil.object2String(list), clazz);
     }
@@ -350,9 +348,9 @@ public class RedisService {
      * @param reference 列表元素类对象
      * @return          获取到的列表
      */
-    public <T> List<T> getCacheListByRange(final String key, int start, int end, TypeReference<List<T>> reference){
-        List<T> list = redisTemplate.opsForList().range(key, start, end);
-        return list;
+    public <T> List<T> getCacheListByRange(final String key, long start, long end, TypeReference<List<T>> reference){
+        List list = redisTemplate.opsForList().range(key, start, end);
+        return JsonUtil.string2Object(JsonUtil.object2String(list), reference);
     }
 
     /**
@@ -435,7 +433,7 @@ public class RedisService {
      * @param startScore    起始分数
      * @param endScore      结束分数
      */
-    public void removeZSetByScore(final String key, int startScore, int endScore){
+    public void removeZSetByScore(final String key, double startScore, double endScore){
         redisTemplate.opsForZSet().removeRangeByScore(key, startScore, endScore);
     }
 
@@ -476,7 +474,7 @@ public class RedisService {
      * @param key       Hash key
      * @param dataMap   承载着所有需要存放的键值对的 Map
      */
-    public <T> void setCacheHash(final String key, Map<String, T> dataMap){
+    public <T> void setCacheHash(final String key, final Map<String, T> dataMap){
         redisTemplate.opsForHash().putAll(key, dataMap); 
     }
 
@@ -538,7 +536,7 @@ public class RedisService {
      * @param reference     复杂嵌套类型
      * @return              查询结果
      */
-    public <T> List<T> getCacheMapMultiValue(final String key, List<String> hKeys, TypeReference<List<T>> reference){
+    public <T> List<T> getCacheMapMultiValue(final String key, final Collection<String> hKeys, TypeReference<List<T>> reference){
         List list = redisTemplate.opsForHash().multiGet(key, hKeys);
         return JsonUtil.string2Object(JsonUtil.object2String(list), reference);
     }
