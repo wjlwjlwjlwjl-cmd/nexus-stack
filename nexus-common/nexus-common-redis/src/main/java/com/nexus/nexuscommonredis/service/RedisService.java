@@ -1,12 +1,14 @@
-package com.nexuscommonredis.service;
+package com.nexus.nexuscommonredis.service;
 
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.Set;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
@@ -421,8 +423,107 @@ public class RedisService {
         redisTemplate.opsForZSet().removeRangeByScore(key, startScore, endScore);
     }
 
+    /**
+     * 获取到某个结合中的所有内容（复杂类型）
+     * 
+     * @param <T>           单个元素类型
+     * @param key           ZSet 键值
+     * @param reference     复杂类型
+     * @return              获取到的 Set
+     */
     public <T> Set<T> getCacheZSet(final String key, TypeReference<LinkedHashSet<T>> reference){
         Set set = redisTemplate.opsForZSet().range(key, 0, -1);
         return JsonUtil.string2Object(JsonUtil.object2String(set), reference);
+    }
+
+    /**
+     * 逆序获取到某个集合中所有内容（复杂类型）
+     * 
+     * @param <T>           单个元素类型
+     * @param key           ZSet 键值
+     * @param reference     复杂类型
+     * @return              获取到的 Set
+     */
+    public <T> Set<T> getCacheZSetReverse(final String key, TypeReference<LinkedHashSet<T>> reference){
+        Set set = redisTemplate.opsForZSet().reverseRange(key, 0, -1);
+        return JsonUtil.string2Object(JsonUtil.object2String(set), reference);
+    }
+
+    //*************** */
+    //  Hash 类型
+    //*************** */
+
+    /**
+     * 将 dataMap 中的所有键值对都作为 Hash 存储进 Redis
+     * 
+     * @param <T>       键值对值类型
+     * @param key       Hash key
+     * @param dataMap   承载着所有需要存放的键值对的 Map
+     */
+    public <T> void setCacheHash(final String key, Map<String, T> dataMap){
+        redisTemplate.opsForHash().putAll(key, dataMap); 
+    }
+
+    /**
+     * 往 Hash 中增添键值对
+     * 
+     * @param <T>       键值对值类型
+     * @param key       Hash key
+     * @param hKey      键值对主键
+     * @param value     键值对值
+     */
+    public <T> void setCacheMapValue(final String key, final String hKey, T value){
+        redisTemplate.opsForHash().put(key, hKey, value);
+    }
+
+    /**
+     * 删除 Hash 中的单个键值对
+     * 
+     * @param key       Hash key
+     * @param hKey      要删除的键值对的 key
+     * @return          是否删除成功
+     */
+    public boolean deleteCacheMapValue(final String key, final String hKey){
+        return redisTemplate.opsForHash().delete(key, hKey) > 0;
+    }
+
+    /**
+     * 获取 Hash 中的所有键值对
+     * 
+     * @param <T>               键值对值类型
+     * @param key               Hash key
+     * @param typeReference     Map类型
+     * @return                  返回结果
+     */
+    public <T> Map<String, T> getCacheMap(final String key, TypeReference<Map<String, T>> typeReference){
+        Map map = redisTemplate.opsForHash().entries(key);
+        return JsonUtil.string2Object(JsonUtil.object2String(map), typeReference);
+    }
+
+    /**
+     * 获取 Hash 的一个键值对中的值
+     * 
+     * @param <T>   键值对的值类型
+     * @param key   Hash Key
+     * @param hKey  键值对键
+     * @return      获取结果
+     */
+    public <T> T getCacheMapValue(final String key, final String hKey){
+        HashOperations<String, String, T> operations = redisTemplate.opsForHash();
+        return operations.get(key, hKey);
+    }
+
+    /**
+     * 获取一个 Hash 中的若干键值对
+     * 
+     * @param <T>           Hash 中值的类型
+     * @param key           Hash key
+     * @param hKeys         要查询的 Hash 中的key 
+     * @param reference     复杂嵌套类型
+     * @return              查询结果
+     */
+    public <T> List<T> getCacheMapMultiValue(final String key, List<String> hKeys, TypeReference<List<T>> reference){
+        List list = redisTemplate.opsForHash().multiGet(key, hKeys);
+        return JsonUtil.string2Object(JsonUtil.object2String(list), reference);
     }
 }
