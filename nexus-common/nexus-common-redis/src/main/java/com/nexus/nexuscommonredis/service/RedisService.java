@@ -196,9 +196,10 @@ public class RedisService {
      * @return
      */
     public <T> T getCacheObject(final String key, TypeReference<T> reference){
-        Object obj = redisTemplate.opsForValue().get(key);
-        if(obj == null) return null;
-        return JsonUtil.string2Object(JsonUtil.object2String(obj), reference);
+        ValueOperations valueOperations = redisTemplate.opsForValue();
+        Object o = valueOperations.get(key);
+        if(o == null) return null;
+        return JsonUtil.string2Object(JsonUtil.object2String(o), reference);
     }
 
     //************** */

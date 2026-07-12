@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.nexus.nexuscommonredis.service.RedisService;
 import com.nexus.nexusmstemplate.domain.User;
 
@@ -42,11 +41,11 @@ public class TestRedis {
     }
 
     @GetMapping("/kv/get")
-    public List<User> get(String key){
-        List<User> user = redisService.getCacheObject(key, new TypeReference<List<User>>(){});
-        if(user == null){
-            log.warn("user == null");
+    public String get(String key){
+        String val = redisService.getCacheObject(key, String.class);
+        if(val == null){
+            log.warn("val == null");
         }
-        return user;
+        return val;
     }
 }

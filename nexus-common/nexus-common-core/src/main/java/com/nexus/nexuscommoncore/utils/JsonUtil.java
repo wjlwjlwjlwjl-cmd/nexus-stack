@@ -45,11 +45,11 @@ public class JsonUtil {
      * @return    转换结果
      */
     public static<T> String object2String(T obj){
-        if(obj == null || obj instanceof String){
-            return (String)obj;
+        if(obj == null){
+            return null;
         }
         try{
-            return OBJECT_MAPPER.writeValueAsString(obj);
+            return obj instanceof String ? (String) obj : OBJECT_MAPPER.writeValueAsString(obj);
         }
         catch (JsonProcessingException e) {
             log.warn("obj transfer to json fail: {}", e.toString());
@@ -64,11 +64,11 @@ public class JsonUtil {
      * @return    返回结果（美化）
      */
     public static<T> String object2StringPretty(T obj){
-        if(obj == null || obj instanceof String){
-            return (String)obj;
+        if(obj == null){
+            return null;
         }
         try{
-            return OBJECT_MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(obj);
+            return obj instanceof String ? (String)obj : OBJECT_MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(obj);
         }
         catch (JsonProcessingException e) {
             log.warn("obj transfer to json fail: {}", e.toString());
