@@ -65,6 +65,11 @@
             <artifactId>nexus-common-cache</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>com</groupId>
+            <artifactId>nexus-common-rabbitmq</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>

@@ -19,6 +19,7 @@
         <module>nexus-common-security</module>
         <module>nexus-common-redis</module>
         <module>nexus-common-cache</module>
+        <module>nexus-common-rabbitmq</module>
     </modules>
 
     <properties>

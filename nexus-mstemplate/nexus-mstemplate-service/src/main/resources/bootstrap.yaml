@@ -19,4 +19,5 @@ spring:
         # 共享配置
         shared-configs:
           - dataId: shared-redis-${RUN_ENV}.${spring.cloud.nacos.config.file-extension}
-          - dataId: shared-caffeine-#{RUN_ENV}.${spring.cloud.nacos.config.file-extension}
+          - dataId: shared-caffeine-${RUN_ENV}.${spring.cloud.nacos.config.file-extension}
+          - dataId: shared-rabbitmq-${RUN_ENV}.${spring.cloud.nacos.config.file-extension}
