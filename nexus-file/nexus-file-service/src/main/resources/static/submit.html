@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>服务端生成签名上传文件到OSS</title>
+    <link rel="icon" href="data:,">
+</head>
+
+<body>
+    <div class="container">
+        <form>
+            <div class="mb-3">
+                <label for="file" class="form-label">选择文件:</label>
+                <input type="file" class="form-control" id="file" name="file" required />
+            </div>
+            <button type="submit" class="btn btn-primary">上传</button>
+        </form>
+    </div>
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.querySelector("form");
+            const fileInput = document.querySelector("#file");
+            form.addEventListener("submit", (event) => {
+                event.preventDefault();
+                const file = fileInput.files[0];
+                if (!file) {
+                    alert('请选择一个文件再上传。');
+                    return;
+                }
+                const filename = file.name;
+                fetch("/file/sign", { method: "GET" })
+                    .then((response) => {
+                        if (!response.ok) {
+                            throw new Error("获取签名失败");
+                        }
+                        return response.json();
+                    })
+                    .then((resp) => {
+                        // 1. 校验业务码
+                        if (resp.code !== 200000) {
+                            throw new Error(resp.msg);
+                        }
+                        // 2. 取出内层OSS签名数据
+                        const ossSign = resp.data;
+                        console.log("OSS签名数据：", ossSign);
+
+                        // 3. 提取字段，严格匹配后端返回名称
+                        const uploadHost = ossSign.host;
+                        const keyPrefix = ossSign.pathPrefix;
+
+                        // 空值拦截
+                        if (!uploadHost) {
+                            alert("OSS host获取为空");
+                            return;
+                        }
+
+                        let formData = new FormData();
+                        // 1. 修正状态码为201，匹配Policy规则
+                        formData.append("success_action_status", "201");
+                        formData.append("policy", ossSign.policy);
+                        formData.append("x-oss-signature", ossSign.signature);
+                        // 2. 字段名和Policy保持一致 x-oss-signature-version
+                        formData.append("x-oss-signature-version", "OSS4-HMAC-SHA256");
+                        formData.append("x-oss-credential", ossSign.xosscredential);
+                        formData.append("x-oss-date", ossSign.xossdate);
+                        // 3. key前缀匹配Policy user/eric/
+                        formData.append("key", "user/eric/" + file.name);
+                        // file必须放最后
+                        formData.append("file", file);
+
+                        // 直传OSS
+                        return fetch(uploadHost, {
+                            method: "POST",
+                            body: formData
+                        });
+                    })
+                    .then((response) => {
+                        if (response.ok) {
+                            console.log("上传成功");
+                            alert("文件已上传");
+                        } else {
+                            console.log("上传失败", response);
+                            alert("上传失败，请稍后再试");
+                        }
+                    })
+                    .catch((error) => {
+                        console.error("发生错误:", error);
+                    });
+            });
+        });
+    </script>
+</body>
+
+</html>

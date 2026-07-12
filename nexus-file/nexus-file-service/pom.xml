@@ -50,6 +50,11 @@
             <artifactId>aliyun-sdk-oss</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>sts20150401</artifactId>
+            <version>1.1.6</version>
+        </dependency>
+        <dependency>
             <groupId>com</groupId>
             <artifactId>nexus-common-core</artifactId>
             <version>1.0-SNAPSHOT</version>
