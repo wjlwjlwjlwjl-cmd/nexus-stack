@@ -27,8 +27,8 @@ spring:
             refresh: true
           # - data-id: shared-mysql-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
           #  refresh: true
-          # - data-id: shared-map-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
-          #   refresh: true
+          - data-id: shared-map-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+            refresh: true
           - data-id: shared-caffeine-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
             refresh: true
           - data-id: shared-rabbitmq-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}

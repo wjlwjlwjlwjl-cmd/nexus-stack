@@ -2,6 +2,11 @@ package com.nexus.nexusadminservice.domain.dto;
 
 import lombok.Data;
 
+/**
+ * 地点 poi 信息(point of interest)
+ * 
+ * PoiDTO
+ */
 @Data
 public class PoiDTO {
     private String id;              //poi 地点的唯一标识

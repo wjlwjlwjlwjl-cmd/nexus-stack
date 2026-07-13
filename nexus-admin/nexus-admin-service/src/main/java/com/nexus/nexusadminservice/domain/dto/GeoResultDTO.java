@@ -3,9 +3,9 @@ package com.nexus.nexusadminservice.domain.dto;
 import lombok.Data;
 
 /**
- * 逆地址解析结果
+ * 逆地址解析结果（由经纬度获取具体的文字地点信息）
  * 
- * GeoResultDTO
+ * GeoResultDTO 
  */
 
 @Data

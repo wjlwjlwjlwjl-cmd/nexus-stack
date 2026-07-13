@@ -2,6 +2,11 @@ package com.nexus.nexusadminservice.domain.dto;
 
 import lombok.Data;
 
+/**
+ * 腾讯位置服务响应基类（QQ表示腾讯）
+ * 
+ * QQMapBaseResponseDTO
+ */
 @Data
 public class QQMapBaseResponseDTO {
     private Integer stauts;         //0 表示成功

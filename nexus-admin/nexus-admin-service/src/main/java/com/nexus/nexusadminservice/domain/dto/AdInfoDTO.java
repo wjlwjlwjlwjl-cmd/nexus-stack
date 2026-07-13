@@ -3,7 +3,7 @@ package com.nexus.nexusadminservice.domain.dto;
 import lombok.Data;
 
 /**
- * 逆地址解析结果（带详细地址）
+ * 逆地址解析结果（带详细地址，存储逆地址解析出的地点的具体信息）
  * 
  * AdInfoDTO
  */
