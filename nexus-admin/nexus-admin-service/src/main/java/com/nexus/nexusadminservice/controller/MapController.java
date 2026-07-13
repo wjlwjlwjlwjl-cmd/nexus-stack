@@ -38,4 +38,11 @@ public class MapController {
         }
         return R.ok(py_list);
     }
+
+    @RequestMapping("/get_child_list")
+    public R<List<RegionVO>> get_child_list(int parentId){
+        List<SysRegionDTO> list = mapServiceImpl.get_child_list(parentId);
+        List<RegionVO> ret = BeanCopyUtil.copyListProperties(list, RegionVO::new);
+        return R.ok(ret);
+    }
 }

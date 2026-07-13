@@ -6,6 +6,7 @@ import java.util.Map;
 import com.nexus.nexusadminservice.domain.dto.SysRegionDTO;
 
 public interface IMapService {
-    public List<SysRegionDTO> get_list();   // 获取城市列表
-    public Map<String, List<SysRegionDTO>> get_py_list();
+    public List<SysRegionDTO> get_list();                       // 获取城市列表
+    public Map<String, List<SysRegionDTO>> get_py_list();       // 依据拼音获取城市列表
+    public List<SysRegionDTO> get_child_list(int parentId);
 }

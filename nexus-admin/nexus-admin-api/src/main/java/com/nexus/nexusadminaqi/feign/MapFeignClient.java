@@ -16,4 +16,7 @@ public interface MapFeignClient {
 
     @GetMapping("/map/get_py_list")
     public R<Map<String, List<RegionVO>>> get_py_list();
+
+    @GetMapping("/map/get_child_list")
+    public R<List<RegionVO>> get_child_list(int parentId);
 }

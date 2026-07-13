@@ -82,31 +82,37 @@ public class MapServiceImpl implements IMapService{
 
     @Override
     public List<SysRegionDTO> get_list() {
-        List<SysRegionDTO> regions;
-        regions = cacheUtil.getCache(MapConstants.CACHE_MAP_CITY_KEY, new TypeReference<List<SysRegionDTO>>(){}, cache, redisService);
-        if(regions != null){
-            return regions;
-        }
-    
-        regions = new ArrayList<>();
-        List<SysRegion> rets = dao.selectAllRegion();
-        for(SysRegion region: rets){
-            if(region.getLevel().equals(MapConstants.CITY_LEVEL)){  //从查询结果中过滤出所有城市
-                SysRegionDTO item = new SysRegionDTO();
-                BeanCopyUtil.copyProperties(region, item);
-                regions.add(item);
-            }
-        }
-
-        cacheUtil.setL2Cache(MapConstants.CACHE_MAP_CITY_KEY, regions, cache, redisService, 1000, TimeUnit.SECONDS);
-        return regions;
+        return cacheUtil.getCache(MapConstants.CACHE_MAP_CITY_KEY, new TypeReference<List<SysRegionDTO>>(){}, cache, redisService);
     }
 
     @Override
     public Map<String, List<SysRegionDTO>> get_py_list() {
-        Map<String, List<SysRegionDTO>> py_list = cacheUtil
-            .getCache(MapConstants.CACHE_MAP_CITY_PINYIN_KEY, new TypeReference<Map<String, List<SysRegionDTO>>>() {}, cache, redisService);
+        return cacheUtil.getCache(MapConstants.CACHE_MAP_CITY_PINYIN_KEY, new TypeReference<Map<String, List<SysRegionDTO>>>() {}, cache, redisService);
+    }
 
-        return py_list;
+    @Override
+    public List<SysRegionDTO> get_child_list(int parentId) {
+        List<SysRegionDTO> list = new ArrayList<>();
+        String key = MapConstants.CACHE_MAP_CITY_CHILDREN_KEY + parentId; //下级行政区域前缀 + parentId
+        //先尝试从缓存中获取
+        list = cacheUtil.getCache(key, new TypeReference<List<SysRegionDTO>>(){}, cache, redisService);
+        if(list != null){
+            return list;
+        }
+
+        //从数据库中检索
+        list = new ArrayList<>();
+        List<SysRegion> regions = dao.selectAllRegion();
+        for(SysRegion region: regions){
+            if(region.getParentId() != null && region.getParentId() == parentId){
+                SysRegionDTO sysRegionDTO = new SysRegionDTO();
+                BeanCopyUtil.copyProperties(region, sysRegionDTO);
+                list.add(sysRegionDTO);
+            }
+        }
+
+        //设置进缓存
+        cacheUtil.setL2Cache(key, regions, cache, redisService, 1000, TimeUnit.SECONDS);
+        return list;
     }
 }
