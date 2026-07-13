@@ -1,6 +1,8 @@
 package com.nexus.nexusadminservice.controller;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,5 +25,17 @@ public class MapController {
         List<SysRegionDTO> regions = mapServiceImpl.get_list();
         List<RegionVO> ret = BeanCopyUtil.copyListProperties(regions, RegionVO::new);
         return R.ok(ret);
+    }
+
+    @RequestMapping("/get_py_list")
+    public R<Map<String, List<RegionVO>>> get_py_list(){
+        Map<String, List<RegionVO>> py_list = new LinkedHashMap<>();
+        Map<String, List<SysRegionDTO>> list = mapServiceImpl.get_py_list();
+
+        for(Map.Entry<String, List<SysRegionDTO>> item: list.entrySet()){
+            List<RegionVO> regionVOs = BeanCopyUtil.copyListProperties(item.getValue(), RegionVO::new);
+            py_list.put(item.getKey(), regionVOs);
+        }
+        return R.ok(py_list);
     }
 }

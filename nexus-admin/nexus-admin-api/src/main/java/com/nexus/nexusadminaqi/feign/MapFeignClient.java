@@ -1,6 +1,7 @@
 package com.nexus.nexusadminaqi.feign;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,4 +13,7 @@ import com.nexus.nexuscommondomain.domain.R;
 public interface MapFeignClient {
     @GetMapping("/map/get_list")
     public R<List<RegionVO>> get_list();
+
+    @GetMapping("/map/get_py_list")
+    public R<Map<String, List<RegionVO>>> get_py_list();
 }
