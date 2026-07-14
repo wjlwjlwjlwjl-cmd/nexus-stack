@@ -98,14 +98,13 @@ public class SysDictionaryTypeImpl implements ISysDictionaryType {
             return null;
         }
 
-        SysDictionaryType item = new SysDictionaryType();
-        item.setTypeKey(dictionaryTypeWriteReqDTO.getTypeKey());
-        item.setValue(dictionaryTypeWriteReqDTO.getValue());
-        if(StringUtils.isNotBlank(item.getRemark())){
-            item.setRemark(item.getRemark());
+        sysDictionaryType.setTypeKey(dictionaryTypeWriteReqDTO.getTypeKey());
+        sysDictionaryType.setValue(dictionaryTypeWriteReqDTO.getValue());
+        if(StringUtils.isNotBlank(dictionaryTypeWriteReqDTO.getRemark())){
+            sysDictionaryType.setRemark(dictionaryTypeWriteReqDTO.getRemark());
         }
-        configTypeDao.updateById(item);
-        return item.getId();
+        configTypeDao.updateById(sysDictionaryType);
+        return sysDictionaryType.getId();
     }
 
 }

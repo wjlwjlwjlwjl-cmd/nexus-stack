@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.nexus.nexusadminaqi.config.domain.dto.DictionaryDataAddReqDTO;
+import com.nexus.nexusadminaqi.config.domain.dto.DictionaryDataEditReqDTO;
 import com.nexus.nexusadminaqi.config.domain.dto.DictionaryDataListReqDTO;
 import com.nexus.nexusadminaqi.config.domain.vo.DictionaryDataVO;
 import com.nexus.nexusadminservice.config.dao.ConfigDataDao;
@@ -87,4 +88,36 @@ public class SysDictionaryDataImpl implements ISysDictionaryData{
         return list;
     }
 
+    @Override
+    public Long editData(DictionaryDataEditReqDTO dictionaryDataEditReqDTO) {
+        SysDictionaryData sysDictionaryData = new SysDictionaryData();
+
+        LambdaQueryWrapper<SysDictionaryData> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(SysDictionaryData::getDataKey, dictionaryDataEditReqDTO.getDataKey());
+        sysDictionaryData = configDataDao.selectOne(wrapper);
+        if(sysDictionaryData == null){
+            log.warn("字典数据键不存在: ", dictionaryDataEditReqDTO.getDataKey());
+            return null;
+        }
+
+        LambdaQueryWrapper<SysDictionaryData> wrapper2 = new LambdaQueryWrapper<>();
+        wrapper2.ne(SysDictionaryData::getDataKey, dictionaryDataEditReqDTO.getDataKey())
+            .eq(SysDictionaryData::getValue, dictionaryDataEditReqDTO.getValue());
+        if(configDataDao.selectOne(wrapper2) != null){
+            log.warn("字典数据已存在");
+            return null;
+        }
+
+        sysDictionaryData.setDataKey(dictionaryDataEditReqDTO.getDataKey());
+        sysDictionaryData.setValue(dictionaryDataEditReqDTO.getValue());
+        if(dictionaryDataEditReqDTO.getSort() != null){
+            sysDictionaryData.setSort(dictionaryDataEditReqDTO.getSort());
+        }
+        if(StringUtils.isNotBlank(dictionaryDataEditReqDTO.getRemark())){
+            sysDictionaryData.setRemark(dictionaryDataEditReqDTO.getRemark());
+        }
+        configDataDao.updateById(sysDictionaryData);
+        Long id = sysDictionaryData.getId();
+        return id;
+    }
 }

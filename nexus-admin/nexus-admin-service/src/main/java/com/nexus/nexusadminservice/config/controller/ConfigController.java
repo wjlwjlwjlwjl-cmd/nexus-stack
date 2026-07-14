@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nexus.nexusadminaqi.config.domain.dto.DictionaryDataAddReqDTO;
+import com.nexus.nexusadminaqi.config.domain.dto.DictionaryDataEditReqDTO;
 import com.nexus.nexusadminaqi.config.domain.dto.DictionaryDataListReqDTO;
 import com.nexus.nexusadminaqi.config.domain.dto.DictionaryTypeListReqDTO;
 import com.nexus.nexusadminaqi.config.domain.dto.DictionaryTypeWriteReqDTO;
@@ -18,6 +19,8 @@ import com.nexus.nexusadminservice.config.service.impl.SysDictionaryDataImpl;
 import com.nexus.nexusadminservice.config.service.impl.SysDictionaryTypeImpl;
 import com.nexus.nexuscommondomain.domain.R;
 import com.nexus.nexuscommondomain.domain.vo.BasePageVO;
+
+import jakarta.validation.executable.ValidateOnExecution;
 
 @RestController
 public class ConfigController implements ConfigFeignClient {
@@ -44,7 +47,7 @@ public class ConfigController implements ConfigFeignClient {
     public R<Long> edit_type(@RequestBody @Validated DictionaryTypeWriteReqDTO dictionaryTypeWriteReqDTO){
         Long ret = sysDictionaryTypeImpl.editType(dictionaryTypeWriteReqDTO);
         if(ret == null){
-            return R.fail("修改字典类型值失败");
+            return R.fail("修改字典类型失败");
         }
         return R.ok(ret);
     }
@@ -59,7 +62,16 @@ public class ConfigController implements ConfigFeignClient {
     }
 
     @GetMapping("/dictionary_data/list")
-    public R<BasePageVO<DictionaryDataVO>> listType(DictionaryDataListReqDTO dictionaryDataListReqDTO){
+    public R<BasePageVO<DictionaryDataVO>> listData(DictionaryDataListReqDTO dictionaryDataListReqDTO){
         return R.ok(sysDictionaryDataImpl.listData(dictionaryDataListReqDTO));
+    }
+
+    @PostMapping("/dictionary_data/edit")
+    public R<Long> editData(@RequestBody @Validated DictionaryDataEditReqDTO dictionaryDataEditReqDTO){
+        Long ret = sysDictionaryDataImpl.editData(dictionaryDataEditReqDTO);
+        if(ret == null){
+            return R.fail("修改字典数据失败");
+        }
+        return R.ok(ret);
     }
 }
