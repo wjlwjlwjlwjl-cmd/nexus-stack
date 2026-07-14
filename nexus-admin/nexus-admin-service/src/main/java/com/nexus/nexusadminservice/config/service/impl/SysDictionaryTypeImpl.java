@@ -12,7 +12,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.nexus.nexusadminaqi.config.domain.dto.DictionaryTypeListReqDTO;
 import com.nexus.nexusadminaqi.config.domain.dto.DictionaryTypeWriteReqDTO;
 import com.nexus.nexusadminaqi.config.domain.vo.DictionaryTypeVO;
-import com.nexus.nexusadminservice.config.dao.ConfigDao;
+import com.nexus.nexusadminservice.config.dao.ConfigDataDao;
+import com.nexus.nexusadminservice.config.dao.ConfigTypeDao;
 import com.nexus.nexusadminservice.config.domain.entity.SysDictionaryType;
 import com.nexus.nexusadminservice.config.service.ISysDictionaryType;
 import com.nexus.nexuscommoncore.utils.BeanCopyUtil;
@@ -22,10 +23,12 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
-@SuppressWarnings({"null"})
 public class SysDictionaryTypeImpl implements ISysDictionaryType {
     @Autowired
-    ConfigDao configDao;
+    ConfigTypeDao configTypeDao;
+
+    @Autowired
+    ConfigDataDao configDataDao;
 
     @Override
     public Long addType(DictionaryTypeWriteReqDTO dictionaryTypeWriteReqDTO){
@@ -36,7 +39,7 @@ public class SysDictionaryTypeImpl implements ISysDictionaryType {
             .eq(SysDictionaryType::getTypeKey, dictionaryTypeWriteReqDTO.getTypeKey())
             .or()
             .eq(SysDictionaryType::getValue, dictionaryTypeWriteReqDTO.getValue());
-        SysDictionaryType sysDictionaryType = configDao.selectOne(wrapper);
+        SysDictionaryType sysDictionaryType = configTypeDao.selectOne(wrapper);
         if(sysDictionaryType != null){
             log.warn("字典类型键或值冲突");
             return null;
@@ -47,12 +50,13 @@ public class SysDictionaryTypeImpl implements ISysDictionaryType {
         sysDictionaryType.setStatus(1);
         sysDictionaryType.setValue(dictionaryTypeWriteReqDTO.getValue());
         sysDictionaryType.setTypeKey(dictionaryTypeWriteReqDTO.getTypeKey());
-        configDao.insert(sysDictionaryType);
+        configTypeDao.insert(sysDictionaryType);
         return sysDictionaryType.getId();
     }
 
     @Override
     public BasePageVO<DictionaryTypeVO> listType(DictionaryTypeListReqDTO dictionaryTypeListReqDTO) {
+        BasePageVO<DictionaryTypeVO> result = new BasePageVO<>();
         LambdaQueryWrapper<SysDictionaryType> wrapper = new LambdaQueryWrapper<>();
         if(StringUtils.isNotBlank(dictionaryTypeListReqDTO.getTypeKey())){
             wrapper.eq(SysDictionaryType::getTypeKey, dictionaryTypeListReqDTO.getTypeKey());
@@ -61,9 +65,8 @@ public class SysDictionaryTypeImpl implements ISysDictionaryType {
             wrapper.likeRight(SysDictionaryType::getValue, dictionaryTypeListReqDTO.getValue());
         }
 
-        BasePageVO<DictionaryTypeVO> result = new BasePageVO<>();
         //按照页数查询
-        Page<SysDictionaryType> page = configDao.selectPage(
+        Page<SysDictionaryType> page = configTypeDao.selectPage(
             new Page<>(dictionaryTypeListReqDTO.getPageNo().longValue(), dictionaryTypeListReqDTO.getPageSize().longValue())
             , wrapper);
         result.setTotalPages(Integer.parseInt(String.valueOf(page.getPages())));
@@ -78,4 +81,31 @@ public class SysDictionaryTypeImpl implements ISysDictionaryType {
         result.setList(list);
         return result;
     }
+
+    @Override
+    public Long editType(DictionaryTypeWriteReqDTO dictionaryTypeWriteReqDTO){
+        SysDictionaryType sysDictionaryType = configTypeDao.selectOne(new LambdaQueryWrapper<SysDictionaryType>().eq(SysDictionaryType::getTypeKey, dictionaryTypeWriteReqDTO.getTypeKey()));
+        if(sysDictionaryType == null){
+            log.warn("editType fail: 字典类型键不存在");
+            return null;
+        }
+
+        SysDictionaryType sysDictionaryType2 = configTypeDao.selectOne(new LambdaQueryWrapper<SysDictionaryType>()
+            .eq(SysDictionaryType::getValue, dictionaryTypeWriteReqDTO.getValue())
+            .ne(SysDictionaryType::getTypeKey, dictionaryTypeWriteReqDTO.getTypeKey()));
+        if(sysDictionaryType2 != null){
+            log.warn("editType fail: 字典类型值已存在");
+            return null;
+        }
+
+        SysDictionaryType item = new SysDictionaryType();
+        item.setTypeKey(dictionaryTypeWriteReqDTO.getTypeKey());
+        item.setValue(dictionaryTypeWriteReqDTO.getValue());
+        if(StringUtils.isNotBlank(item.getRemark())){
+            item.setRemark(item.getRemark());
+        }
+        configTypeDao.updateById(item);
+        return item.getId();
+    }
+
 }

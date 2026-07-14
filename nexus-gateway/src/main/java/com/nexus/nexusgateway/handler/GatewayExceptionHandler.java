@@ -23,7 +23,7 @@ import com.nexus.nexuscommondomain.exception.ServiceException;
 @Slf4j
 @Order(-1)
 @Configuration
-public class GatewayExceptionHandler implements ErrorWebExceptionHandler {@Override
+public class GatewayExceptionHandler implements ErrorWebExceptionHandler {
     /**
      * 网关统一异常处理，捕获服务路径错误、自定义异常及其他非服务接口错误
      * 
@@ -31,20 +31,21 @@ public class GatewayExceptionHandler implements ErrorWebExceptionHandler {@Overr
      * @param ex 异常信息
      * @return 无
      */
+    @Override
     public @NonNull Mono<Void> handle(ServerWebExchange exchange, Throwable ex) {
         ServerHttpResponse response = exchange.getResponse();
         if(response.isCommitted()){
             return Mono.error(ex); //响应已经到达客户端，无法再进行修改
         }
         int errCode = ResultCode.ERROR.getCode();
-        String errMsg = ResultCode.SERVICE_NOT_FOUND.getMsg();
+        String errMsg = ResultCode.ERROR.getMsg();
         if(ex instanceof NoResourceFoundException){
             errCode = ResultCode.SERVICE_NOT_FOUND.getCode();
             errMsg = ResultCode.SERVICE_NOT_FOUND.getMsg();
         }
         else if(ex instanceof ServiceException){
             errCode = ((ServiceException)ex).getCode();
-            errMsg = ((ServiceException)ex).getMsg();
+            errMsg = ex.getMessage();
         }
 
         //和服务处的统一异常处理相同，取错误码的前三位作为 http 响应状态码

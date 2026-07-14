@@ -7,10 +7,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nexus.nexusadminaqi.config.domain.dto.DictionaryDataAddReqDTO;
+import com.nexus.nexusadminaqi.config.domain.dto.DictionaryDataListReqDTO;
 import com.nexus.nexusadminaqi.config.domain.dto.DictionaryTypeListReqDTO;
 import com.nexus.nexusadminaqi.config.domain.dto.DictionaryTypeWriteReqDTO;
+import com.nexus.nexusadminaqi.config.domain.vo.DictionaryDataVO;
 import com.nexus.nexusadminaqi.config.domain.vo.DictionaryTypeVO;
 import com.nexus.nexusadminaqi.config.feign.ConfigFeignClient;
+import com.nexus.nexusadminservice.config.service.impl.SysDictionaryDataImpl;
 import com.nexus.nexusadminservice.config.service.impl.SysDictionaryTypeImpl;
 import com.nexus.nexuscommondomain.domain.R;
 import com.nexus.nexuscommondomain.domain.vo.BasePageVO;
@@ -19,14 +23,43 @@ import com.nexus.nexuscommondomain.domain.vo.BasePageVO;
 public class ConfigController implements ConfigFeignClient {
     @Autowired
     SysDictionaryTypeImpl sysDictionaryTypeImpl;
+    @Autowired
+    SysDictionaryDataImpl sysDictionaryDataImpl;
 
     @PostMapping("/dictionary_type/add")
-    public R<Long> add_type(@RequestBody @Validated DictionaryTypeWriteReqDTO dictionaryTypeWriteReqDTO) {
-        return R.ok(sysDictionaryTypeImpl.addType(dictionaryTypeWriteReqDTO));
+    public R<Long> add_type(@RequestBody @Validated DictionaryTypeWriteReqDTO dictionaryTypeWriteReqDTO){
+        Long ret = sysDictionaryTypeImpl.editType(dictionaryTypeWriteReqDTO);
+        if(ret == null){
+            return R.fail("新建字典类型值失败");
+        }
+        return R.ok(ret);
     }
 
     @GetMapping("/dictionary_type/list")
     public R<BasePageVO<DictionaryTypeVO>> listType(DictionaryTypeListReqDTO DictionaryTypeListReqDTO){
         return R.ok(sysDictionaryTypeImpl.listType(DictionaryTypeListReqDTO));
+    }
+
+    @PostMapping("/dictionary_type/edit")
+    public R<Long> edit_type(@RequestBody @Validated DictionaryTypeWriteReqDTO dictionaryTypeWriteReqDTO){
+        Long ret = sysDictionaryTypeImpl.editType(dictionaryTypeWriteReqDTO);
+        if(ret == null){
+            return R.fail("修改字典类型值失败");
+        }
+        return R.ok(ret);
+    }
+
+    @PostMapping("/dictionary_data/add")
+    public R<Long> add_data(@RequestBody @Validated DictionaryDataAddReqDTO dictionaryDataAddReqDTO){
+        Long ret = sysDictionaryDataImpl.addData(dictionaryDataAddReqDTO);
+        if(ret == null){
+            return R.fail("新建字典数据失败");
+        }
+        return R.ok(ret);
+    }
+
+    @GetMapping("/dictionary_data/list")
+    public R<BasePageVO<DictionaryDataVO>> listType(DictionaryDataListReqDTO dictionaryDataListReqDTO){
+        return R.ok(sysDictionaryDataImpl.listData(dictionaryDataListReqDTO));
     }
 }
