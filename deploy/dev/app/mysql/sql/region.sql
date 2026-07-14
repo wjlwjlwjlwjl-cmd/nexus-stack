@@ -1,4 +1,4 @@
-USE frameworkjava_region;
+USE frameworkjava_admin;
 
 CREATE TABLE `sys_region` (
 `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键id',
