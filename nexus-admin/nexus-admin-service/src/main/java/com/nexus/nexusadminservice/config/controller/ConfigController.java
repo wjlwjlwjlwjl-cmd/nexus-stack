@@ -14,16 +14,14 @@ import com.nexus.nexusadminaqi.config.domain.dto.DictionaryTypeListReqDTO;
 import com.nexus.nexusadminaqi.config.domain.dto.DictionaryTypeWriteReqDTO;
 import com.nexus.nexusadminaqi.config.domain.vo.DictionaryDataVO;
 import com.nexus.nexusadminaqi.config.domain.vo.DictionaryTypeVO;
-import com.nexus.nexusadminaqi.config.feign.ConfigFeignClient;
 import com.nexus.nexusadminservice.config.service.impl.SysDictionaryDataImpl;
 import com.nexus.nexusadminservice.config.service.impl.SysDictionaryTypeImpl;
 import com.nexus.nexuscommondomain.domain.R;
 import com.nexus.nexuscommondomain.domain.vo.BasePageVO;
 
-import jakarta.validation.executable.ValidateOnExecution;
 
 @RestController
-public class ConfigController implements ConfigFeignClient {
+public class ConfigController {
     @Autowired
     SysDictionaryTypeImpl sysDictionaryTypeImpl;
     @Autowired

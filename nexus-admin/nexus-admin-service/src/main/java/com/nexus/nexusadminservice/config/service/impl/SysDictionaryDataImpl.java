@@ -45,6 +45,7 @@ public class SysDictionaryDataImpl implements ISysDictionaryData{
         //检查字典数据键或值是否存在
         LambdaQueryWrapper<SysDictionaryData> wrapper2 = new LambdaQueryWrapper<>();
         wrapper2.eq(SysDictionaryData::getDataKey, dictionaryDataAddReqDTO.getDataKey())
+            .or()
             .eq(SysDictionaryData::getValue, dictionaryDataAddReqDTO.getValue());
         if(configDataDao.selectOne(wrapper2) != null){
             log.warn("[addData] 字典数据键或值已存在");            
@@ -74,6 +75,8 @@ public class SysDictionaryDataImpl implements ISysDictionaryData{
         if(StringUtils.isNotBlank(dictionaryDataListReqDTO.getValue())){
             wrapper.eq(SysDictionaryData::getValue, dictionaryDataListReqDTO.getValue());
         }
+        wrapper.orderByAsc(SysDictionaryData::getSort);
+        wrapper.orderByAsc(SysDictionaryData::getId);
         Page<SysDictionaryData> page = configDataDao.selectPage(new Page<>(dictionaryDataListReqDTO.getPageNo().longValue(), dictionaryDataListReqDTO.getPageSize()), wrapper);
 
         list.setTotalPages(Integer.parseInt(String.valueOf(page.getPages())));
