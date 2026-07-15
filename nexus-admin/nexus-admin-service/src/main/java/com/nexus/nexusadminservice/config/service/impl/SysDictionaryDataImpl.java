@@ -20,6 +20,7 @@ import com.nexus.nexusadminservice.config.domain.entity.SysDictionaryType;
 import com.nexus.nexusadminservice.config.service.ISysDictionaryData;
 import com.nexus.nexuscommoncore.utils.BeanCopyUtil;
 import com.nexus.nexuscommondomain.domain.vo.BasePageVO;
+import com.nexus.nexuscommondomain.exception.ServiceException;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,14 +33,13 @@ public class SysDictionaryDataImpl implements ISysDictionaryData{
     ConfigTypeDao configTypeDao;
 
     @Override
-    public Long addData(DictionaryDataAddReqDTO dictionaryDataAddReqDTO) {
+    public Long addData(DictionaryDataAddReqDTO dictionaryDataAddReqDTO) throws ServiceException{
         //表中有维护联合索引（键-值）
         //检查字典类型是否存在
         LambdaQueryWrapper<SysDictionaryType> wrapper1 = new LambdaQueryWrapper<>();
         wrapper1.eq(SysDictionaryType::getTypeKey, dictionaryDataAddReqDTO.getTypeKey());
         if(configTypeDao.selectOne(wrapper1) == null){
-            log.warn("[addData] TypeKey 不存在");
-            return null;
+            throw new ServiceException("[addData] TypeKey 不存在");
         }
 
         //检查字典数据键或值是否存在
@@ -48,8 +48,7 @@ public class SysDictionaryDataImpl implements ISysDictionaryData{
             .or()
             .eq(SysDictionaryData::getValue, dictionaryDataAddReqDTO.getValue());
         if(configDataDao.selectOne(wrapper2) != null){
-            log.warn("[addData] 字典数据键或值已存在");            
-            return null;
+            throw new ServiceException("[addData] 字典数据键或值已存在");            
         }
 
         SysDictionaryData sysDictionaryData = new SysDictionaryData();
@@ -92,23 +91,21 @@ public class SysDictionaryDataImpl implements ISysDictionaryData{
     }
 
     @Override
-    public Long editData(DictionaryDataEditReqDTO dictionaryDataEditReqDTO) {
+    public Long editData(DictionaryDataEditReqDTO dictionaryDataEditReqDTO) throws ServiceException {
         SysDictionaryData sysDictionaryData = new SysDictionaryData();
 
         LambdaQueryWrapper<SysDictionaryData> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(SysDictionaryData::getDataKey, dictionaryDataEditReqDTO.getDataKey());
         sysDictionaryData = configDataDao.selectOne(wrapper);
         if(sysDictionaryData == null){
-            log.warn("字典数据键不存在: ", dictionaryDataEditReqDTO.getDataKey());
-            return null;
+            throw new ServiceException("字典数据键不存在");
         }
 
         LambdaQueryWrapper<SysDictionaryData> wrapper2 = new LambdaQueryWrapper<>();
         wrapper2.ne(SysDictionaryData::getDataKey, dictionaryDataEditReqDTO.getDataKey())
             .eq(SysDictionaryData::getValue, dictionaryDataEditReqDTO.getValue());
         if(configDataDao.selectOne(wrapper2) != null){
-            log.warn("字典数据已存在");
-            return null;
+            throw new ServiceException("字典数据已存在");
         }
 
         sysDictionaryData.setDataKey(dictionaryDataEditReqDTO.getDataKey());

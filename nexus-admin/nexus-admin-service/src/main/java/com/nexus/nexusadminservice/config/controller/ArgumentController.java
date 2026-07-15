@@ -14,6 +14,7 @@ import com.nexus.nexusadminapi.config.feign.ArgumentFeignClient;
 import com.nexus.nexusadminservice.config.service.impl.ArgumentServiceImpl;
 import com.nexus.nexuscommondomain.domain.R;
 import com.nexus.nexuscommondomain.domain.vo.BasePageVO;
+import com.nexus.nexuscommondomain.exception.ServiceException;
 
 @RestController
 public class ArgumentController implements ArgumentFeignClient{
@@ -21,12 +22,8 @@ public class ArgumentController implements ArgumentFeignClient{
     ArgumentServiceImpl argumentServiceImpl;
 
     @Override
-    public R<Long> add(ArgumentAddReqDTO argumentAddReqDTO) {
-        Long ret = argumentServiceImpl.add(argumentAddReqDTO);
-        if(ret == null){
-            return R.fail("新建参数失败");
-        }
-        return R.ok(ret);
+    public R<Long> add(ArgumentAddReqDTO argumentAddReqDTO) throws ServiceException {
+        return R.ok(argumentServiceImpl.add(argumentAddReqDTO));
     }
 
     @Override
@@ -35,12 +32,8 @@ public class ArgumentController implements ArgumentFeignClient{
     }
 
     @Override
-    public R<Long> edit(ArgumentEditReqDTO argumentEditReqDTO) {
-        Long ret = argumentServiceImpl.edit(argumentEditReqDTO);
-        if(ret == null){
-            return R.fail("修改参数失败");
-        }
-        return R.ok(ret);
+    public R<Long> edit(ArgumentEditReqDTO argumentEditReqDTO) throws ServiceException{
+        return R.ok(argumentServiceImpl.edit(argumentEditReqDTO));
     }
 
     @Override

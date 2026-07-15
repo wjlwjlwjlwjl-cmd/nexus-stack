@@ -4,6 +4,7 @@ import com.nexus.nexusadminapi.config.domain.dto.DictionaryTypeListReqDTO;
 import com.nexus.nexusadminapi.config.domain.dto.DictionaryTypeWriteReqDTO;
 import com.nexus.nexusadminapi.config.domain.vo.DictionaryTypeVO;
 import com.nexus.nexuscommondomain.domain.vo.BasePageVO;
+import com.nexus.nexuscommondomain.exception.ServiceException;
 
 public interface ISysDictionaryType {
     /**
@@ -11,8 +12,9 @@ public interface ISysDictionaryType {
      * 
      * @param dictionaryTypeWriteReqDTO
      * @return  字典类型 ID
+     * @throws ServiceException 
      */
-    public Long addType(DictionaryTypeWriteReqDTO dictionaryTypeWriteReqDTO);
+    public Long addType(DictionaryTypeWriteReqDTO dictionaryTypeWriteReqDTO) throws ServiceException;
 
     /**
      * 获取所有字典类型
@@ -27,6 +29,7 @@ public interface ISysDictionaryType {
      * 
      * @param dictionaryTypeWriteReqDTO
      * @return  编辑后字典类型 ID
+     * @throws ServiceException 
      */
-    public Long editType(DictionaryTypeWriteReqDTO dictionaryTypeWriteReqDTO);
+    public Long editType(DictionaryTypeWriteReqDTO dictionaryTypeWriteReqDTO) throws ServiceException;
 }

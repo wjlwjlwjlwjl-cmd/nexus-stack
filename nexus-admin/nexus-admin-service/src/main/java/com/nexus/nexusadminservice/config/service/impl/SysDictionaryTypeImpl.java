@@ -18,6 +18,7 @@ import com.nexus.nexusadminservice.config.domain.entity.SysDictionaryType;
 import com.nexus.nexusadminservice.config.service.ISysDictionaryType;
 import com.nexus.nexuscommoncore.utils.BeanCopyUtil;
 import com.nexus.nexuscommondomain.domain.vo.BasePageVO;
+import com.nexus.nexuscommondomain.exception.ServiceException;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,7 +32,7 @@ public class SysDictionaryTypeImpl implements ISysDictionaryType {
     ConfigDataDao configDataDao;
 
     @Override
-    public Long addType(DictionaryTypeWriteReqDTO dictionaryTypeWriteReqDTO){
+    public Long addType(DictionaryTypeWriteReqDTO dictionaryTypeWriteReqDTO) throws ServiceException{
         LambdaQueryWrapper<SysDictionaryType> wrapper = new LambdaQueryWrapper<>();
         
         //字典类型键、值有一个冲突都不能插入
@@ -41,8 +42,7 @@ public class SysDictionaryTypeImpl implements ISysDictionaryType {
             .eq(SysDictionaryType::getValue, dictionaryTypeWriteReqDTO.getValue());
         SysDictionaryType sysDictionaryType = configTypeDao.selectOne(wrapper);
         if(sysDictionaryType != null){
-            log.warn("字典类型键或值冲突");
-            return null;
+            throw new ServiceException("字典类型键或值冲突");
         }
 
         sysDictionaryType = new SysDictionaryType();
@@ -83,19 +83,17 @@ public class SysDictionaryTypeImpl implements ISysDictionaryType {
     }
 
     @Override
-    public Long editType(DictionaryTypeWriteReqDTO dictionaryTypeWriteReqDTO){
+    public Long editType(DictionaryTypeWriteReqDTO dictionaryTypeWriteReqDTO) throws ServiceException{
         SysDictionaryType sysDictionaryType = configTypeDao.selectOne(new LambdaQueryWrapper<SysDictionaryType>().eq(SysDictionaryType::getTypeKey, dictionaryTypeWriteReqDTO.getTypeKey()));
         if(sysDictionaryType == null){
-            log.warn("editType fail: 字典类型键不存在");
-            return null;
+            throw new ServiceException("editType fail: 字典类型键不存在");
         }
 
         SysDictionaryType sysDictionaryType2 = configTypeDao.selectOne(new LambdaQueryWrapper<SysDictionaryType>()
             .eq(SysDictionaryType::getValue, dictionaryTypeWriteReqDTO.getValue())
             .ne(SysDictionaryType::getTypeKey, dictionaryTypeWriteReqDTO.getTypeKey()));
         if(sysDictionaryType2 != null){
-            log.warn("editType fail: 字典类型值已存在");
-            return null;
+            throw new ServiceException("editType fail: 字典类型值已存在");
         }
 
         sysDictionaryType.setTypeKey(dictionaryTypeWriteReqDTO.getTypeKey());

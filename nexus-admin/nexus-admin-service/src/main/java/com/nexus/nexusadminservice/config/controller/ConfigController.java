@@ -18,6 +18,7 @@ import com.nexus.nexusadminservice.config.service.impl.SysDictionaryDataImpl;
 import com.nexus.nexusadminservice.config.service.impl.SysDictionaryTypeImpl;
 import com.nexus.nexuscommondomain.domain.R;
 import com.nexus.nexuscommondomain.domain.vo.BasePageVO;
+import com.nexus.nexuscommondomain.exception.ServiceException;
 
 
 @RestController
@@ -28,12 +29,8 @@ public class ConfigController {
     SysDictionaryDataImpl sysDictionaryDataImpl;
 
     @PostMapping("/dictionary_type/add")
-    public R<Long> add_type(@RequestBody @Validated DictionaryTypeWriteReqDTO dictionaryTypeWriteReqDTO){
-        Long ret = sysDictionaryTypeImpl.editType(dictionaryTypeWriteReqDTO);
-        if(ret == null){
-            return R.fail("新建字典类型值失败");
-        }
-        return R.ok(ret);
+    public R<Long> add_type(@RequestBody @Validated DictionaryTypeWriteReqDTO dictionaryTypeWriteReqDTO) throws ServiceException{
+        return R.ok(sysDictionaryTypeImpl.editType(dictionaryTypeWriteReqDTO));
     }
 
     @GetMapping("/dictionary_type/list")
@@ -42,21 +39,13 @@ public class ConfigController {
     }
 
     @PostMapping("/dictionary_type/edit")
-    public R<Long> edit_type(@RequestBody @Validated DictionaryTypeWriteReqDTO dictionaryTypeWriteReqDTO){
-        Long ret = sysDictionaryTypeImpl.editType(dictionaryTypeWriteReqDTO);
-        if(ret == null){
-            return R.fail("修改字典类型失败");
-        }
-        return R.ok(ret);
+    public R<Long> edit_type(@RequestBody @Validated DictionaryTypeWriteReqDTO dictionaryTypeWriteReqDTO) throws ServiceException{
+        return R.ok(sysDictionaryTypeImpl.editType(dictionaryTypeWriteReqDTO));
     }
 
     @PostMapping("/dictionary_data/add")
-    public R<Long> add_data(@RequestBody @Validated DictionaryDataAddReqDTO dictionaryDataAddReqDTO){
-        Long ret = sysDictionaryDataImpl.addData(dictionaryDataAddReqDTO);
-        if(ret == null){
-            return R.fail("新建字典数据失败");
-        }
-        return R.ok(ret);
+    public R<Long> add_data(@RequestBody @Validated DictionaryDataAddReqDTO dictionaryDataAddReqDTO) throws ServiceException{
+        return R.ok(sysDictionaryDataImpl.addData(dictionaryDataAddReqDTO));
     }
 
     @GetMapping("/dictionary_data/list")
@@ -65,11 +54,7 @@ public class ConfigController {
     }
 
     @PostMapping("/dictionary_data/edit")
-    public R<Long> editData(@RequestBody @Validated DictionaryDataEditReqDTO dictionaryDataEditReqDTO){
-        Long ret = sysDictionaryDataImpl.editData(dictionaryDataEditReqDTO);
-        if(ret == null){
-            return R.fail("修改字典数据失败");
-        }
-        return R.ok(ret);
+    public R<Long> editData(@RequestBody @Validated DictionaryDataEditReqDTO dictionaryDataEditReqDTO) throws ServiceException{
+        return R.ok(sysDictionaryDataImpl.editData(dictionaryDataEditReqDTO));
     }
 }

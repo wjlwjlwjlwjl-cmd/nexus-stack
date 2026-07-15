@@ -14,6 +14,7 @@ import com.nexus.nexusadminservice.config.dao.ConfigDataDao;
 import com.nexus.nexusadminservice.config.domain.entity.SysDictionaryData;
 import com.nexus.nexusadminservice.config.service.ISysDictionaryService;
 import com.nexus.nexuscommoncore.utils.BeanCopyUtil;
+import com.nexus.nexuscommondomain.exception.ServiceException;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,13 +25,12 @@ public class SysDictionaryTypeServiceImpl implements ISysDictionaryService{
     ConfigDataDao configDataDao;
 
     @Override
-    public List<DictionaryDataDTO> selectDictDataByType(String typeKey) {
+    public List<DictionaryDataDTO> selectDictDataByType(String typeKey) throws ServiceException{
         LambdaQueryWrapper<SysDictionaryData> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(SysDictionaryData::getTypeKey, typeKey);
         List<SysDictionaryData> list = configDataDao.selectList(wrapper);
         if(list == null){
-            log.warn("未查询到typeKey: ", typeKey);
-            return null;
+            throw new ServiceException("未查询到typeKey");
         }
 
         List<DictionaryDataDTO> rets = BeanCopyUtil.copyListProperties(list, DictionaryDataDTO::new);
@@ -38,7 +38,7 @@ public class SysDictionaryTypeServiceImpl implements ISysDictionaryService{
     }
 
     @Override
-    public Map<String, List<DictionaryDataDTO>> selectDictsDataByTypes(List<String> typeKeys) {
+    public Map<String, List<DictionaryDataDTO>> selectDictsDataByTypes(List<String> typeKeys) throws ServiceException{
         Map<String, List<DictionaryDataDTO>> map = new HashMap<>();
 
         for(String typeKey: typeKeys){
@@ -46,8 +46,7 @@ public class SysDictionaryTypeServiceImpl implements ISysDictionaryService{
             wrapper.eq(SysDictionaryData::getTypeKey, typeKey);
             List<SysDictionaryData> list = configDataDao.selectList(wrapper);
             if(list == null){
-                log.warn("未查询到typeKey: ", typeKey);
-                return null;
+                throw new ServiceException("未查询到typeKey: ");
             }
 
             List<DictionaryDataDTO> item = BeanCopyUtil.copyListProperties(list, DictionaryDataDTO::new);

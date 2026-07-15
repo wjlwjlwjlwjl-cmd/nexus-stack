@@ -16,6 +16,7 @@ import com.nexus.nexusadminservice.config.domain.entity.SysArgument;
 import com.nexus.nexusadminservice.config.service.IArgumentService;
 import com.nexus.nexuscommoncore.utils.BeanCopyUtil;
 import com.nexus.nexuscommondomain.domain.vo.BasePageVO;
+import com.nexus.nexuscommondomain.exception.ServiceException;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,14 +31,13 @@ public class ArgumentServiceImpl implements IArgumentService{
     ArgumentDao argumentDao;
 
     @Override
-    public Long add(ArgumentAddReqDTO argumentAddReqDTO) {
+    public Long add(ArgumentAddReqDTO argumentAddReqDTO) throws ServiceException {
         LambdaQueryWrapper<SysArgument> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(SysArgument::getName, argumentAddReqDTO.getName())
             .or()
             .eq(SysArgument::getConfigKey, argumentAddReqDTO.getConfigKey());
         if(argumentDao.selectOne(wrapper) != null){
-            log.warn("参数名称/键冲突");
-            return null;
+            throw new ServiceException("参数名称/键冲突");
         }
 
         SysArgument sysArgument = new SysArgument();
@@ -78,13 +78,12 @@ public class ArgumentServiceImpl implements IArgumentService{
     }
 
     @Override
-    public Long edit(ArgumentEditReqDTO argumentEditReqDTO) {
+    public Long edit(ArgumentEditReqDTO argumentEditReqDTO) throws ServiceException{
         LambdaQueryWrapper<SysArgument> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(SysArgument::getConfigKey, argumentEditReqDTO.getConfigKey());
         SysArgument sysArgument = argumentDao.selectOne(wrapper); 
         if(sysArgument == null){
-            log.warn("参数不存在");
-            return null;
+            throw new ServiceException("参数不存在");
         }
         sysArgument.setConfigKey(argumentEditReqDTO.getConfigKey());
         sysArgument.setName(argumentEditReqDTO.getName());
