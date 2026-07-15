@@ -1,4 +1,4 @@
-package com.nexus.nexusadminaqi.argument.domain.dto;
+package com.nexus.nexusadminaqi.config.domain.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;

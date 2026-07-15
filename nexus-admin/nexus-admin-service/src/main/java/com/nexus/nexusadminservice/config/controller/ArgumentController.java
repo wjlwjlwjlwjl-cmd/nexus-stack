@@ -1,0 +1,55 @@
+package com.nexus.nexusadminservice.config.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.nexus.nexusadminaqi.config.domain.dto.ArgumentAddReqDTO;
+import com.nexus.nexusadminaqi.config.domain.dto.ArgumentDTO;
+import com.nexus.nexusadminaqi.config.domain.dto.ArgumentEditReqDTO;
+import com.nexus.nexusadminaqi.config.domain.dto.ArgumentListReqDTO;
+import com.nexus.nexusadminaqi.config.domain.vo.ArgumentVO;
+import com.nexus.nexusadminaqi.config.feign.ArgumentFeignClient;
+import com.nexus.nexusadminservice.config.service.impl.ArgumentServiceImpl;
+import com.nexus.nexuscommondomain.domain.R;
+import com.nexus.nexuscommondomain.domain.vo.BasePageVO;
+
+@RestController
+public class ArgumentController implements ArgumentFeignClient{
+    @Autowired
+    ArgumentServiceImpl argumentServiceImpl;
+
+    @Override
+    public R<Long> add(ArgumentAddReqDTO argumentAddReqDTO) {
+        Long ret = argumentServiceImpl.add(argumentAddReqDTO);
+        if(ret == null){
+            return R.fail("新建参数失败");
+        }
+        return R.ok(ret);
+    }
+
+    @Override
+    public R<BasePageVO<ArgumentVO>> list(ArgumentListReqDTO argumentListReqDTO) {
+        return R.ok(argumentServiceImpl.list(argumentListReqDTO));
+    }
+
+    @Override
+    public R<Long> edit(ArgumentEditReqDTO argumentEditReqDTO) {
+        Long ret = argumentServiceImpl.edit(argumentEditReqDTO);
+        if(ret == null){
+            return R.fail("修改参数失败");
+        }
+        return R.ok(ret);
+    }
+
+    @Override
+    public ArgumentDTO getByConfigKey(String configKey) {
+        return argumentServiceImpl.getByConfigKey(configKey);
+    }
+
+    @Override
+    public List<ArgumentDTO> getByConfigKeys(List<String> configKeys) {
+        return argumentServiceImpl.getByConfigKeys(configKeys);
+    }
+}

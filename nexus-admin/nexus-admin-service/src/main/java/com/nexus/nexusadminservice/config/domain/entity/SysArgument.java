@@ -1,4 +1,4 @@
-package com.nexus.nexusadminservice.argument.domain.entity;
+package com.nexus.nexusadminservice.config.domain.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
