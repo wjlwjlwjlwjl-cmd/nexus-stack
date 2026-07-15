@@ -6,6 +6,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.AntPathMatcher;
 
+@SuppressWarnings({"null"})
 public class StringUtil {
     /**
      * 将 str 和 patternList 所提供的结构进行匹配

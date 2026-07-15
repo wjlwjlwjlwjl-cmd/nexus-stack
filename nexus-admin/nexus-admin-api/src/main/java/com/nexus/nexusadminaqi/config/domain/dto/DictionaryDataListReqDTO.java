@@ -4,11 +4,13 @@ import com.nexus.nexuscommondomain.domain.dto.BasePageReqDTO;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * 字典数据列表DTO
  */
 @Data
+@EqualsAndHashCode(callSuper=false)
 public class DictionaryDataListReqDTO extends BasePageReqDTO {
 
     /**

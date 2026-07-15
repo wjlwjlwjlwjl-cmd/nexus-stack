@@ -3,11 +3,13 @@ package com.nexus.nexusadminaqi.config.domain.dto;
 import com.nexus.nexuscommondomain.domain.dto.BasePageReqDTO;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * 查看参数DTO
  */
 @Data
+@EqualsAndHashCode(callSuper=false)
 public class ArgumentListReqDTO extends BasePageReqDTO {
 
     /**

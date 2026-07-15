@@ -7,7 +7,6 @@ import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nexus.nexusadminaqi.config.domain.dto.DictionaryDataAddReqDTO;
 import com.nexus.nexusadminaqi.config.domain.dto.DictionaryDataDTO;
 import com.nexus.nexusadminaqi.config.feign.DictionaryFeignClient;
 import com.nexus.nexusadminservice.config.service.impl.SysDictionaryTypeServiceImpl;

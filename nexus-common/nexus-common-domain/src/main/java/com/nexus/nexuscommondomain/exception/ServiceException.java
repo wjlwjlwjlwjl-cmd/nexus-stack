@@ -33,6 +33,10 @@ public class ServiceException extends Exception{
         this.errCode = errCode;
         this.errMsg = errMsg;
     }
+    public ServiceException(String errMsg, int errCode){
+        this.errCode = errCode;
+        this.errMsg = errMsg;
+    }
 
     /**
      * ServiceException 构造方法（使用通用错误码）

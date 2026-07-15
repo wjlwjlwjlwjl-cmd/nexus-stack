@@ -1,7 +1,5 @@
 package com.nexus.nexuscommoncore.config;
 
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executor;
 import java.util.concurrent.RejectedExecutionHandler;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -44,7 +42,6 @@ public class ThreadPoolConfig {
 
     @Bean("threadPoolExecutor")
     public Executor getThreadPoolExecutor(){
-        BlockingQueue<Runnable> workQueue = new ArrayBlockingQueue<>(queueCapacity);
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         executor.setCorePoolSize(corePoolSize);
         executor.setMaxPoolSize(corePoolSize);

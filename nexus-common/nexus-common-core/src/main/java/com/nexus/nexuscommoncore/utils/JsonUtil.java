@@ -83,6 +83,7 @@ public class JsonUtil {
      * @param clazz 转换结果类型
      * @return 转换对象
      */
+    @SuppressWarnings("unchecked")
     public static<T> T string2Object(String str, Class<T> clazz){
         if(str == null || str.isEmpty() || clazz == null){
             return null;
