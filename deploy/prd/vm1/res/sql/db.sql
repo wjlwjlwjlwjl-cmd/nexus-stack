@@ -4415,7 +4415,7 @@ CREATE TABLE `app_user` (
                             `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增主键',
                             `nick_name` varchar(64) DEFAULT NULL COMMENT '昵称',
                             `phone_number` varchar(64) NOT NULL COMMENT '电话',
-                            `open_id` varchar(64) DEFAULT NULL COMMENT '微信用户openId',
+                            `email` varchar(64) DEFAULT NULL COMMENT '微信用户email',
                             `avatar` varchar(255) DEFAULT NULL COMMENT '头像',
                             PRIMARY KEY (`id`) USING BTREE,
                             UNIQUE KEY `uk_phone` (`phone_number`) USING BTREE

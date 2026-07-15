@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nexus.nexusadminservice.config.service.ISysDictionaryService;
-import com.nexus.nexusadminservice.user.dao.SysUserMapper;
+import com.nexus.nexusadminservice.user.dao.SysUserDao;
 import com.nexus.nexusadminservice.user.domain.dto.PasswordLoginDTO;
 import com.nexus.nexusadminservice.user.domain.dto.SysUserDTO;
 import com.nexus.nexusadminservice.user.domain.dto.SysUserListReqDTO;
@@ -35,7 +35,7 @@ public class SysUserServiceImpl implements ISysUserService {
      * B端用户表的mapper
      */
     @Autowired
-    private SysUserMapper sysUserMapper;
+    private SysUserDao sysUserMapper;
 
     /**
      * token服务类

@@ -12,7 +12,7 @@ import java.util.List;
  * 处理sys_user表
  */
 @Mapper
-public interface SysUserMapper extends BaseMapper<SysUser> {
+public interface SysUserDao extends BaseMapper<SysUser> {
 
     SysUser selectByPhoneNumber(@Param("phoneNumber") String phoneNumber);
 
