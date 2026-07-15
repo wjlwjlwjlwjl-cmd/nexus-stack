@@ -7,12 +7,12 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nexus.nexusadminaqi.map.domain.dto.LocationReqDTO;
-import com.nexus.nexusadminaqi.map.domain.dto.PlaceSearchReqDTO;
-import com.nexus.nexusadminaqi.map.domain.vo.RegionCityVo;
-import com.nexus.nexusadminaqi.map.domain.vo.RegionVO;
-import com.nexus.nexusadminaqi.map.domain.vo.SearchPoiVo;
-import com.nexus.nexusadminaqi.map.feign.MapFeignClient;
+import com.nexus.nexusadminapi.map.domain.dto.LocationReqDTO;
+import com.nexus.nexusadminapi.map.domain.dto.PlaceSearchReqDTO;
+import com.nexus.nexusadminapi.map.domain.vo.RegionCityVo;
+import com.nexus.nexusadminapi.map.domain.vo.RegionVO;
+import com.nexus.nexusadminapi.map.domain.vo.SearchPoiVo;
+import com.nexus.nexusadminapi.map.feign.MapFeignClient;
 import com.nexus.nexusadminservice.map.domain.dto.RegionCityDTO;
 import com.nexus.nexusadminservice.map.domain.dto.SearchPoiDTO;
 import com.nexus.nexusadminservice.map.domain.dto.SysRegionDTO;

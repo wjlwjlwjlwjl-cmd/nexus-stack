@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import com.nexus.nexusadminaqi.map.constants.MapConstants;
+import com.nexus.nexusadminapi.map.constants.MapConstants;
 import com.nexus.nexusadminservice.map.domain.dto.GeoResultDTO;
 import com.nexus.nexusadminservice.map.domain.dto.LocationDTO;
 import com.nexus.nexusadminservice.map.domain.dto.PoiListDTO;

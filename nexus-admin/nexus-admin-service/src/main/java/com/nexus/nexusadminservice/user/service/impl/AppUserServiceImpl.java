@@ -13,9 +13,9 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import com.nexus.nexusadminaqi.appuser.domain.dto.AppUserDTO;
-import com.nexus.nexusadminaqi.appuser.domain.dto.AppUserListReqDTO;
-import com.nexus.nexusadminaqi.appuser.domain.dto.UserEditReqDTO;
+import com.nexus.nexusadminapi.appuser.domain.dto.AppUserDTO;
+import com.nexus.nexusadminapi.appuser.domain.dto.AppUserListReqDTO;
+import com.nexus.nexusadminapi.appuser.domain.dto.UserEditReqDTO;
 import com.nexus.nexusadminservice.user.config.RabbitConfig;
 import com.nexus.nexusadminservice.user.dao.AppUserDao;
 import com.nexus.nexusadminservice.user.domain.entity.AppUser;

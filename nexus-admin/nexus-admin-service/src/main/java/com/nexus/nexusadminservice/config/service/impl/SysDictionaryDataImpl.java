@@ -9,10 +9,10 @@ import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.nexus.nexusadminaqi.config.domain.dto.DictionaryDataAddReqDTO;
-import com.nexus.nexusadminaqi.config.domain.dto.DictionaryDataEditReqDTO;
-import com.nexus.nexusadminaqi.config.domain.dto.DictionaryDataListReqDTO;
-import com.nexus.nexusadminaqi.config.domain.vo.DictionaryDataVO;
+import com.nexus.nexusadminapi.config.domain.dto.DictionaryDataAddReqDTO;
+import com.nexus.nexusadminapi.config.domain.dto.DictionaryDataEditReqDTO;
+import com.nexus.nexusadminapi.config.domain.dto.DictionaryDataListReqDTO;
+import com.nexus.nexusadminapi.config.domain.vo.DictionaryDataVO;
 import com.nexus.nexusadminservice.config.dao.ConfigDataDao;
 import com.nexus.nexusadminservice.config.dao.ConfigTypeDao;
 import com.nexus.nexusadminservice.config.domain.entity.SysDictionaryData;

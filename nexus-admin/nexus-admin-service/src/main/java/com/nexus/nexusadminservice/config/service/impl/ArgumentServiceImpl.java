@@ -6,11 +6,11 @@ import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.nexus.nexusadminaqi.config.domain.dto.ArgumentAddReqDTO;
-import com.nexus.nexusadminaqi.config.domain.dto.ArgumentDTO;
-import com.nexus.nexusadminaqi.config.domain.dto.ArgumentEditReqDTO;
-import com.nexus.nexusadminaqi.config.domain.dto.ArgumentListReqDTO;
-import com.nexus.nexusadminaqi.config.domain.vo.ArgumentVO;
+import com.nexus.nexusadminapi.config.domain.dto.ArgumentAddReqDTO;
+import com.nexus.nexusadminapi.config.domain.dto.ArgumentDTO;
+import com.nexus.nexusadminapi.config.domain.dto.ArgumentEditReqDTO;
+import com.nexus.nexusadminapi.config.domain.dto.ArgumentListReqDTO;
+import com.nexus.nexusadminapi.config.domain.vo.ArgumentVO;
 import com.nexus.nexusadminservice.config.dao.ArgumentDao;
 import com.nexus.nexusadminservice.config.domain.entity.SysArgument;
 import com.nexus.nexusadminservice.config.service.IArgumentService;

@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.nexus.nexusadminaqi.appuser.domain.dto.AppUserListReqDTO;
+import com.nexus.nexusadminapi.appuser.domain.dto.AppUserListReqDTO;
 import com.nexus.nexusadminservice.user.domain.entity.AppUser;
 
 import feign.Param;

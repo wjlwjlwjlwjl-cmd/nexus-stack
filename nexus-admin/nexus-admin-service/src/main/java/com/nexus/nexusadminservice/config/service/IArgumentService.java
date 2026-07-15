@@ -2,11 +2,11 @@ package com.nexus.nexusadminservice.config.service;
 
 import java.util.List;
 
-import com.nexus.nexusadminaqi.config.domain.dto.ArgumentAddReqDTO;
-import com.nexus.nexusadminaqi.config.domain.dto.ArgumentDTO;
-import com.nexus.nexusadminaqi.config.domain.dto.ArgumentEditReqDTO;
-import com.nexus.nexusadminaqi.config.domain.dto.ArgumentListReqDTO;
-import com.nexus.nexusadminaqi.config.domain.vo.ArgumentVO;
+import com.nexus.nexusadminapi.config.domain.dto.ArgumentAddReqDTO;
+import com.nexus.nexusadminapi.config.domain.dto.ArgumentDTO;
+import com.nexus.nexusadminapi.config.domain.dto.ArgumentEditReqDTO;
+import com.nexus.nexusadminapi.config.domain.dto.ArgumentListReqDTO;
+import com.nexus.nexusadminapi.config.domain.vo.ArgumentVO;
 import com.nexus.nexuscommondomain.domain.vo.BasePageVO;
 
 public interface IArgumentService {

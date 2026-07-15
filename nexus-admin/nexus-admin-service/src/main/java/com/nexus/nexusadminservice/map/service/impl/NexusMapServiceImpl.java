@@ -12,9 +12,9 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.github.benmanes.caffeine.cache.Cache;
-import com.nexus.nexusadminaqi.map.constants.MapConstants;
-import com.nexus.nexusadminaqi.map.domain.dto.LocationReqDTO;
-import com.nexus.nexusadminaqi.map.domain.dto.PlaceSearchReqDTO;
+import com.nexus.nexusadminapi.map.constants.MapConstants;
+import com.nexus.nexusadminapi.map.domain.dto.LocationReqDTO;
+import com.nexus.nexusadminapi.map.domain.dto.PlaceSearchReqDTO;
 import com.nexus.nexusadminservice.map.dao.MapDao;
 import com.nexus.nexusadminservice.map.domain.dto.GeoResultDTO;
 import com.nexus.nexusadminservice.map.domain.dto.LocationDTO;

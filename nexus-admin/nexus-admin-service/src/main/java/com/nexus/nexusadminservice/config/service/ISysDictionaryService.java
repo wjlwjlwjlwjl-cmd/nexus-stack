@@ -3,7 +3,7 @@ package com.nexus.nexusadminservice.config.service;
 import java.util.List;
 import java.util.Map;
 
-import com.nexus.nexusadminaqi.config.domain.dto.DictionaryDataDTO;
+import com.nexus.nexusadminapi.config.domain.dto.DictionaryDataDTO;
 
 public interface ISysDictionaryService {
     /**

@@ -1,9 +1,9 @@
 package com.nexus.nexusadminservice.config.service;
 
-import com.nexus.nexusadminaqi.config.domain.dto.DictionaryDataAddReqDTO;
-import com.nexus.nexusadminaqi.config.domain.dto.DictionaryDataEditReqDTO;
-import com.nexus.nexusadminaqi.config.domain.dto.DictionaryDataListReqDTO;
-import com.nexus.nexusadminaqi.config.domain.vo.DictionaryDataVO;
+import com.nexus.nexusadminapi.config.domain.dto.DictionaryDataAddReqDTO;
+import com.nexus.nexusadminapi.config.domain.dto.DictionaryDataEditReqDTO;
+import com.nexus.nexusadminapi.config.domain.dto.DictionaryDataListReqDTO;
+import com.nexus.nexusadminapi.config.domain.vo.DictionaryDataVO;
 import com.nexus.nexuscommondomain.domain.vo.BasePageVO;
 
 public interface ISysDictionaryData {

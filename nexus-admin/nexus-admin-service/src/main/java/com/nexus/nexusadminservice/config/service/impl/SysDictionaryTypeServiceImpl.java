@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.nexus.nexusadminaqi.config.domain.dto.DictionaryDataDTO;
+import com.nexus.nexusadminapi.config.domain.dto.DictionaryDataDTO;
 import com.nexus.nexusadminservice.config.dao.ConfigDataDao;
 import com.nexus.nexusadminservice.config.domain.entity.SysDictionaryData;
 import com.nexus.nexusadminservice.config.service.ISysDictionaryService;

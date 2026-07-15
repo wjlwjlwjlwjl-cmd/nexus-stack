@@ -2,9 +2,9 @@ package com.nexus.nexusadminservice.user.service;
 
 import java.util.List;
 
-import com.nexus.nexusadminaqi.appuser.domain.dto.AppUserDTO;
-import com.nexus.nexusadminaqi.appuser.domain.dto.AppUserListReqDTO;
-import com.nexus.nexusadminaqi.appuser.domain.dto.UserEditReqDTO;
+import com.nexus.nexusadminapi.appuser.domain.dto.AppUserDTO;
+import com.nexus.nexusadminapi.appuser.domain.dto.AppUserListReqDTO;
+import com.nexus.nexusadminapi.appuser.domain.dto.UserEditReqDTO;
 import com.nexus.nexuscommoncore.domain.dto.BasePageDTO;
 import com.nexus.nexuscommondomain.exception.ServiceException;
 

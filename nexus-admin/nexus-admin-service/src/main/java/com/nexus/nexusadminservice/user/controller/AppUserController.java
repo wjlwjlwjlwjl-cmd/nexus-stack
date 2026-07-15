@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nexus.nexusadminaqi.appuser.domain.dto.AppUserDTO;
-import com.nexus.nexusadminaqi.appuser.domain.dto.AppUserListReqDTO;
-import com.nexus.nexusadminaqi.appuser.domain.dto.UserEditReqDTO;
-import com.nexus.nexusadminaqi.appuser.domain.vo.AppUserVo;
-import com.nexus.nexusadminaqi.appuser.feign.AppUserFeignClient;
+import com.nexus.nexusadminapi.appuser.domain.dto.AppUserDTO;
+import com.nexus.nexusadminapi.appuser.domain.dto.AppUserListReqDTO;
+import com.nexus.nexusadminapi.appuser.domain.dto.UserEditReqDTO;
+import com.nexus.nexusadminapi.appuser.domain.vo.AppUserVo;
+import com.nexus.nexusadminapi.appuser.feign.AppUserFeignClient;
 import com.nexus.nexusadminservice.user.service.impl.AppUserServiceImpl;
 import com.nexus.nexuscommoncore.domain.dto.BasePageDTO;
 import com.nexus.nexuscommoncore.utils.BeanCopyUtil;
