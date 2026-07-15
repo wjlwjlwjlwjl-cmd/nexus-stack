@@ -6,9 +6,9 @@
  |_| \_|_____/_/\_\\___/|____/     |____/ |_/_/   \_\____|_|\_\
 ```
 
-# NEXUS-STACK，基于 Spring Cloud 的 Java Web 应用脚手架
+# NEXUS-STACK，基于 Spring Cloud 的 Java Web 应用开发脚手架
 
-> 集成 MySQL、Nacos、RabbitMQ、Redis，封装常用工具类，接入阿里云 OSS、腾讯位置服务等外部 API，搭建 B、C 端用户登陆结构
+> 集成 MySQL、Nacos、RabbitMQ、Redis、Caffeine 等，封装常用工具类，接入阿里云 OSS、腾讯位置服务等外部 API，搭建 B、C 端用户登陆结构（邮箱 + 密码认证，暂未找到个人短信验证码 SDK）
 
 ## 脚手架结构
 
@@ -26,7 +26,7 @@
 * nexus-admin，提供管理业务结构，如：字典服务、参数服务、地图位置服务（经纬度定位、行政区划列表获取）、B 端用户管理、C 端用户管理等
 * nexus-common，封装项目通用结构、工具类、中间件操作封装，如：
 
-  * nexus-common-cache，缓存服务，搭建二级缓存结构，使用 Caffeine 作为一级本地缓存，Redis 作为远程二级缓存，提供自动更新缓存数据、自动取数据预热等功能
+  * nexus-common-cache，缓存服务，搭建二级缓存结构，使用 Caffeine 作为一级本地缓存，Redis 作为远程二级缓存，提供自动更新缓存数据、启动时数据预热等功能
   * nexus-common-core，存放各种常用工具类：
 
     * `AESUtil`，封装 Hutool 相应接口，提供文本的加密、解密
